@@ -143,10 +143,3 @@ public class tablaTipos {
                 System.out.println(lexema[i] + "\t" + tipo[i] + "\t\t" + valor[i]);
             else
                 System.out.println(lexema[i] + "\t\t" + tipo[i] + "\t\t" + valor[i]);*/
-
-
-
-
-
-	
-    
