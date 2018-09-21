@@ -6,11 +6,13 @@ import java.io.File;
 
 public class tablaTipos {
 
-    public static final String FILENAME = "texto.txt";
+    public final String ARCHIVO = System.getProperty("user.home") + "\\Desktop\\"; // Codigo que detecta el escritorio
+    File escritorio = new File(ARCHIVO + "texto.txt");                   // Agrega el nombre del archivo
     String lineaActual = "";
 
     //Constructor
     public tablaTipos() {
+
         this.entrada();
     }
 
@@ -20,7 +22,7 @@ public class tablaTipos {
         FileReader fr = null;
 
         try{
-            fr = new FileReader(FILENAME);
+            fr = new FileReader(escritorio);
             br = new BufferedReader(fr);
 
             while((lineaActual = br.readLine()) != null){
@@ -36,13 +38,14 @@ public class tablaTipos {
                     br.close();
                 if(fr != null)
                     fr.close();
-            }catch (IOException ex)
-                ex.printStaclTrace();
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
-
-    public static void main(String[] args) {
+    public void tablaTipos()
+    {
         ArrayList<String> lexema = new ArrayList<>();
         ArrayList<String> tipos = new ArrayList<>();
         ArrayList<Object> valor = new ArrayList<>();
@@ -75,11 +78,15 @@ public class tablaTipos {
                 else
                     System.out.println(lexema.get(i) + "\t" + tipos.get(i) + "\t\t" + valor.get(i));
             else
-                if(tipos.get(i).length() > 3)
-                    System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t" + valor.get(i));
-                else
-                    System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valor.get(i));
+            if(tipos.get(i).length() > 3)
+                System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t" + valor.get(i));
+            else
+                System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valor.get(i));
         }
+    }
+
+    public static void main(String[] args) {
+        new tablaTipos();
     }
 }
     /*Para calcular la longitud de los digitos de valor (en caso de que se agregue una columna a la izquierda y sea necesario para darle formato a la salida)*/
