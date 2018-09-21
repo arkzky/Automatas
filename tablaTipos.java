@@ -14,7 +14,15 @@ public class tablaTipos {
     public tablaTipos() {
         this.entrada();
     }
-
+	//metodo auxiliar, falta el float aqui
+	public boolean isNumeric(String str){
+		for(char c : str.toCharArray()){
+			if(!Character.isDigit(c))
+				return false;
+		}
+		return true;
+	}
+	
     //Lectura de datos de archivo de texto
     public void entrada(){
         BufferedReader br = null;
@@ -37,10 +45,46 @@ public class tablaTipos {
                     br.close();
                 if(fr != null)
                     fr.close();
-            }catch (IOException ex)
-                ex.printStaclTrace();
+            }catch (IOException ex){
+            	ex.printStackTrace();
+            }
+                
         }
     }
+    
+    public void analisisSintactico(String[] Cadena){
+    	//Cadena contiene strings de cada linea
+    	String auxTipo;
+    	if(Cadena[0].equals("int")||Cadena[0].equals("String")||Cadena[0].equals("float")||Cadena[0].equals("boolean")||Cadena[0].equals("char")){
+    		//Se esta declarando una variable
+    		auxTipo=Cadena[0];
+    		for(int i=1; i<=Cadena.length; i++){
+    			if(Cadena[i].equals(",")){
+    				//no hace nada
+    			}
+    			else{
+    				//metodo de busqueda e insercion en la tabla de tipos
+    				//agregartablatipos(Cadena.[i], auxTipo, "");
+    			}
+    		}//termina for
+    	}//termina if
+    	else{
+    		//agregartablatipo(Cadena.[0],"", "")//no se si sera vacio o no
+    		if(isNumeric(Cadena[2])){
+    			//Se esta asignando un valor
+    			//agregartablatipos(Cadena[0],"",Cadena[2]);
+    		}
+    		else{
+    			//Se esta realizando una operacion
+    			//agregartablatipos(Cadena[2],"","");
+    			//agregartablatipos(Cadena[4],"","");
+    		}//termina else
+    		
+    	}//termina else 
+    	
+    }//termina metodo
+    
+   
 
 
     public static void main(String[] args) {
