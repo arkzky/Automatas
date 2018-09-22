@@ -24,7 +24,7 @@ public class tablaTipos {
 
         this.entrada();                                                 // llamada al metodo entrada()
         this.sintactico();
-        this.detectarError();
+       // this.detectarError();
     }
 
     //Lectura de datos de archivo de texto
@@ -99,6 +99,7 @@ public class tablaTipos {
                     agregarTablaSimbolos(linea[0], "", "");
                     agregarTablaSimbolos(linea[2], "", "");
                     agregarTablaSimbolos(linea[4], "", "");
+                    detectarError(linea[0],linea[2],linea[4]);
                 }//termina else
 
             }//termina else
@@ -123,7 +124,7 @@ public class tablaTipos {
                 valores.add(indice,valor);          // se lo agrega
         }
        //CODIGO PARA IMPRIMIR TABLA DE SIMBOLOS
-        System.out.println("\nLexema\tTipo\tValor");
+        System.out.println("\nLexema\t\tTipo\t\tValor");
         for (int i = 0; i < lexemas.size(); i++)
         {
             if (lexemas.get(i).length() > 1)
@@ -142,9 +143,37 @@ public class tablaTipos {
         }
     }
 
-    private void detectarError()
+    private void detectarError(String resul, String variable, String variable1)
     {
-
+    	//paso los 3 lexemas al metodo
+    	int indice, indice2, indice3;
+    	indice = lexemas.indexOf(variable);
+    	indice2 = lexemas.indexOf(variable1);
+    	indice3 = lexemas.indexOf(resul);
+    	/*if(tipos.get(indice)!=tipos.get(indice2)||tipos.get(indice)!=tipos.get(indice3)||tipos.get(indice2)!=tipos.get(indice3)){
+    		if(tipos.get(indice).equals("")||tipos.get(indice2).equals("")||tipos.get(indice3).equals("")){
+    			System.out.println("Error de declaracion de variables");
+    		}else
+    			System.out.println("Error de imcompatibilidad de tipos");
+    	}*/
+    	
+    	//forma 2
+    	if(tipos.get(indice).equals(""))
+    		System.out.println("Error de declaracion de variable en la variable '"+lexemas.get(indice)+"'");
+    	if(tipos.get(indice2).equals(""))
+    		System.out.println("Error de declaracion de variable en la variable '"+lexemas.get(indice2)+"'");
+    	if(tipos.get(indice3).equals(""))
+    		System.out.println("Error de declaracion de variable en la variable '"+lexemas.get(indice3)+"'");
+    	else{
+    		if(tipos.get(indice)!=tipos.get(indice2))
+    			System.out.println("Error de imcompatibilidad de tipos entre la variable '"+lexemas.get(indice)+ "' y la variable '"+lexemas.get(indice2)+"'");
+    		if(tipos.get(indice)!=tipos.get(indice3))
+    			System.out.println("Error de imcompatibilidad de tipos entre la variable '"+lexemas.get(indice)+ "' y la variable '"+lexemas.get(indice3)+"'");
+    		if(tipos.get(indice2)!=tipos.get(indice3))
+    			System.out.println("Error de imcompatibilidad de tipos entre la variable '"+lexemas.get(indice2)+ "' y la variable '"+lexemas.get(indice3)+"'");
+    	}
+    	
+		
     }
 
     public static void main(String[] args)
