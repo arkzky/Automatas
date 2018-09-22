@@ -6,87 +6,100 @@ import java.io.File;
 
 public class tablaTipos {
 
-    public final String ARCHIVO = System.getProperty("user.home") + "\\Desktop\\"; // Codigo que detecta el escritorio
-    File escritorio = new File(ARCHIVO + "texto.txt");                   // Agrega el nombre del archivo
-    String lineaActual = "";
+    public final String ARCHIVO;                                        // Constante que aloja la ruta del archivo a leer
+    File escritorio;                                                    // Objeto que contiene la ruta completa, con el nombre del archivo
+    ArrayList<String> lectura;                                          // Cadena que contendrá cada linea del archivo de texto
+    String lineaActual;
 
-    //Constructor
+    //Constructor no nulo
     public tablaTipos() {
+        ARCHIVO = System.getProperty("user.home") + "\\Desktop\\";      // Codigo que detecta el escritorio
+        escritorio = new File(ARCHIVO + "texto.txt");         // Agrega el nombre del archivo
+        lectura = new ArrayList<>();                                    // inicializacion
+        lineaActual = "";                                               //
 
-        this.entrada();
+        this.entrada();                                                 // llamada al metodo entrada()
     }
 
     //Lectura de datos de archivo de texto
-    public void entrada(){
+    public void entrada() {
         BufferedReader br = null;
         FileReader fr = null;
 
-        try{
-            fr = new FileReader(escritorio);
-            br = new BufferedReader(fr);
+        try {
+            fr = new FileReader(escritorio);      // Se especifica el archivo a leer
+            br = new BufferedReader(fr);          // Se prepara el metodo de lectura de archivos
 
-            while((lineaActual = br.readLine()) != null){
-                System.out.println(lineaActual);
+            while ((lineaActual = br.readLine()) != null)        // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
+            {
+                lectura.add(lineaActual);                          // Se guarda la linea leida en un Arreglo de Lista
+                //System.out.println(lineaActual);                  // Cada elemento del arrayList es una linea completa del archivo de texto
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        finally {
-            try{
-                if(br != null)
-                    br.close();
-                if(fr != null)
-                    fr.close();
-            }catch (IOException ex) {
-                ex.printStackTrace();
+        } finally {                               // finally sirve para indicar las instrucciones que se realizaran independientemente
+            try {                                 //   de si existio o no una excepción antes (el anterior try catch)
+                if (br != null)
+                    br.close();                       // termina el proceso del BufferedReader
+                if (fr != null)
+                    fr.close();                       // termina el proceso del FileReader
+            } catch (IOException ex) {
+                ex.printStackTrace();               // si hubo excepcion imprimira un diagnostico de la pila
             }
         }
     }
 
-    //metodo auxiliar, falta el float aqui
-	public boolean isNumeric(String str){
-		for(char c : str.toCharArray()){
-			if(!Character.isDigit(c))
-				return false;
-		}
-		return true;
-	}
+    //Separador de palabras
+    public String[] separador(String cadena)        //Para usarlo, utiliza ArrayList lectura.get(i); para obtener el string que deseas separar
+    {
+        return cadena.split("[,; ]+");  // regex que omite comas, espacios y punto y comas, tantas como sean
+    }
 
-    public void analisisSintactico(String[] Cadena){
-    	//Cadena contiene strings de cada linea
-    	String auxTipo;
-    	if(Cadena[0].equals("int")||Cadena[0].equals("String")||Cadena[0].equals("float")||Cadena[0].equals("boolean")||Cadena[0].equals("char")){
-    		//Se esta declarando una variable
-    		auxTipo=Cadena[0];
-    		for(int i=1; i<=Cadena.length; i++){
-    			if(Cadena[i].equals(",")){
-    				//no hace nada
-    			}
-    			else{
-    				//metodo de busqueda e insercion en la tabla de tipos
-    				//agregartablatipos(Cadena.[i], auxTipo, "");
-    			}
-    		}//termina for
-    	}//termina if
-    	else{
-    		//agregartablatipo(Cadena.[0],"", "")//no se si sera vacio o no
-    		if(isNumeric(Cadena[2])){
-    			//Se esta asignando un valor
-    			//agregartablatipos(Cadena[0],"",Cadena[2]);
-    		}
-    		else{
-    			//Se esta realizando una operacion
-    			//agregartablatipos(Cadena[2],"","");
-    			//agregartablatipos(Cadena[4],"","");
-    		}//termina else
-    		
-    	}//termina else 
-    	
+    //Metodo auxiliar para detectar numeros reales
+    public boolean isNumeric(String str) {
+        int cont = 0;                                   // Contador que detectara los puntos analizados
+        for (char c : str.toCharArray()) {
+            if(c == '.' && cont < 1)                    // asi detectara a los numeros de punto flotante, pero solo admitira un punto
+            {                                           // si lee otro, se ira al else y retornara falso porque el punto no es digito
+                cont++;                                     // aumenta el contador para detectar cuantas veces ya analizo un punto
+                continue;                       // Se salta al siguiente char
+            } else if(!Character.isDigit(c))   // Si no es un numero
+                return false;
+        }
+        return true;                            // Si logro analizar el string sin problemas, retorna que si es digito
+    }
+
+    public void analisisSintactico(String[] Cadena) {
+        //Cadena contiene strings de cada linea
+        String auxTipo;
+        if (Cadena[0].equals("int") || Cadena[0].equals("String") || Cadena[0].equals("float") || Cadena[0].equals("boolean") || Cadena[0].equals("char")) {
+            //Se esta declarando una variable
+            auxTipo = Cadena[0];
+            for (int i = 1; i <= Cadena.length; i++) {
+                if (Cadena[i].equals(",")) {
+                    //no hace nada
+                } else {
+                    //metodo de busqueda e insercion en la tabla de tipos
+                    //agregartablatipos(Cadena.[i], auxTipo, "");
+                }
+            }//termina for
+        }//termina if
+        else {
+            //agregartablatipo(Cadena.[0],"", "")//no se si sera vacio o no
+            if (isNumeric(Cadena[2])) {
+                //Se esta asignando un valor
+                //agregartablatipos(Cadena[0],"",Cadena[2]);
+            } else {
+                //Se esta realizando una operacion
+                //agregartablatipos(Cadena[2],"","");
+                //agregartablatipos(Cadena[4],"","");
+            }//termina else
+
+        }//termina else
+
     }//termina metodo
 
-    public void tablaTipos()
-    {
+    public void tablaTipos() {
         ArrayList<String> lexema = new ArrayList<>();
         ArrayList<String> tipos = new ArrayList<>();
         ArrayList<Object> valor = new ArrayList<>();
@@ -109,17 +122,16 @@ public class tablaTipos {
         valor.add(80.53);
 
 
-        max = Math.max( Math.max(lexema.size(),tipos.size()), valor.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
+        max = Math.max(Math.max(lexema.size(), tipos.size()), valor.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
         //MARCA ERROR SI LA CANTIDAD DE DATOS NO ES LA MISMA PARA LAS 3 COLUMNAS, FALTA MANEJAR EXCEPCIONES
 
         for (int i = 0; i < max; i++) {
-            if(lexema.get(i).length() > 1)
-                if(tipos.get(i).length() > 3)
+            if (lexema.get(i).length() > 1)
+                if (tipos.get(i).length() > 3)
                     System.out.println(lexema.get(i) + "\t" + tipos.get(i) + "\t" + valor.get(i));
                 else
                     System.out.println(lexema.get(i) + "\t" + tipos.get(i) + "\t\t" + valor.get(i));
-            else
-            if(tipos.get(i).length() > 3)
+            else if (tipos.get(i).length() > 3)
                 System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t" + valor.get(i));
             else
                 System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valor.get(i));
