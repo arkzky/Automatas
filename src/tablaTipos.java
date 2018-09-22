@@ -8,7 +8,7 @@ public class tablaTipos {
 
     public final String ARCHIVO;                                        // Constante que aloja la ruta del archivo a leer
     File escritorio;                                                    // Objeto que contiene la ruta completa, con el nombre del archivo
-    ArrayList<String> lectura;                                          // Cadena que contendrá cada linea del archivo de texto
+    ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     String lineaActual;
 
     //Constructor no nulo
@@ -16,6 +16,9 @@ public class tablaTipos {
         ARCHIVO = System.getProperty("user.home") + "\\Desktop\\";      // Codigo que detecta el escritorio
         escritorio = new File(ARCHIVO + "texto.txt");         // Agrega el nombre del archivo
         lectura = new ArrayList<>();                                    // inicializacion
+        lexemas = new ArrayList<>();
+        tipos = new ArrayList<>();
+        valores = new ArrayList<>();
         lineaActual = "";                                               //
 
         this.entrada();                                                 // llamada al metodo entrada()
@@ -99,30 +102,27 @@ public class tablaTipos {
 
     }//termina metodo
 
-    public void tablaTipos() {
-        ArrayList<String> lexema = new ArrayList<>();
-        ArrayList<String> tipos = new ArrayList<>();
-        ArrayList<Object> valor = new ArrayList<>();
-        int max;
+    public void agregarTablaSimbolos(String lexema, String tipo, String valor)
+    {
+        int indice;
+        if(!lexemas.contains(lexema))    // 1er caso
+        {
+            lexemas.add(lexema);
+            tipos.add(tipo);
+            valores.add(valor);
+        }else
+        {
+            indice = lexemas.indexOf(lexema);
+            if(tipos.get(indice).equals(""))
+                tipos.add(indice, tipo);
 
-        System.out.println("Lexema\tTipo\tValor");
-        lexema.add("x");
-        lexema.add("y");
-        lexema.add("z");
-        lexema.add("suma");
+            if(valores.get(indice).equals(""))
+                valores.add(indice,valor);
+        }
 
-        tipos.add("int");
-        tipos.add("String");
-        tipos.add("boolean");
-        tipos.add("float");
-
-        valor.add(80);
-        valor.add("hola");
-        valor.add(true);
-        valor.add(80.53);
-
-
-        max = Math.max(Math.max(lexema.size(), tipos.size()), valor.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
+        /*CODIGO PARA IMPRIMIR TABLA DE SIMBOLOS
+          System.out.println("Lexema\tTipo\tValor");
+          max = Math.max(Math.max(lexema.size(), tipos.size()), valor.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
         //MARCA ERROR SI LA CANTIDAD DE DATOS NO ES LA MISMA PARA LAS 3 COLUMNAS, FALTA MANEJAR EXCEPCIONES
 
         for (int i = 0; i < max; i++) {
@@ -135,7 +135,7 @@ public class tablaTipos {
                 System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t" + valor.get(i));
             else
                 System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valor.get(i));
-        }
+        }*/
     }
 
     public static void main(String[] args) {
