@@ -22,7 +22,9 @@ public class tablaTipos {
         lineaActual = "";                                               //
 
         this.entrada();                                                 // llamada al metodo entrada()
-        
+        //this.agregarTablaSimbolos("x","int","");
+        //this.agregarTablaSimbolos("y","","10.1");
+        //this.agregarTablaSimbolos("x","","2");
         this.sintactico();
     }
 
@@ -89,7 +91,7 @@ public class tablaTipos {
 	                    //no hace nada
 	                } else {
 	                    //metodo de busqueda e insercion en la tabla de tipos
-	                    //agregartablatipos(linea.[i], auxTipo, "");
+	                    agregarTablaSimbolos(linea[i], auxTipo, "");
 	                }
 	            }//termina for
 	        }//termina if
@@ -97,20 +99,21 @@ public class tablaTipos {
 	            //agregartablatipo(linea.[0],"", "")//no se si sera vacio o no
 	            if (isNumeric(linea[2])) {
 	                //Se esta asignando un valor
-	                //agregartablatipos(linea[0],"",linea[2]);
+	                agregarTablaSimbolos(linea[0],"",linea[2]);
 	            } else {
 	                //Se esta realizando una operacion
-	                //agregartablatipos(linea[2],"","");
-	                //agregartablatipos(linea[4],"","");
+	                agregarTablaSimbolos(linea[0],"","");
+	                agregarTablaSimbolos(linea[2],"","");
+	                agregarTablaSimbolos(linea[4],"","");
 	            }//termina else
 
         }//termina else
         	
         	
         	
-        	for(String a: linea){
+        	/*for(String a: linea){
         		System.out.println(a);
-        	}
+        	}*/
         }
         
 
@@ -124,6 +127,7 @@ public class tablaTipos {
             lexemas.add(lexema);
             tipos.add(tipo);
             valores.add(valor);
+            //System.out.println("Entre con "+lexema);
         }else
         {
             indice = lexemas.indexOf(lexema);
@@ -134,22 +138,22 @@ public class tablaTipos {
                 valores.add(indice,valor);
         }
 
-        /*CODIGO PARA IMPRIMIR TABLA DE SIMBOLOS
-          System.out.println("Lexema\tTipo\tValor");
-          max = Math.max(Math.max(lexema.size(), tipos.size()), valor.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
+       // CODIGO PARA IMPRIMIR TABLA DE SIMBOLOS
+          System.out.println("\nLexema\t\tTipo\t\tValor");
+        // int max = Math.max(Math.max(lexemas.size(), tipos.size()), valores.size());    // Sirve para calcular cual de los 3 arraylist tiene mas datos y usar ese numero para el for
         //MARCA ERROR SI LA CANTIDAD DE DATOS NO ES LA MISMA PARA LAS 3 COLUMNAS, FALTA MANEJAR EXCEPCIONES
-
-        for (int i = 0; i < max; i++) {
-            if (lexema.get(i).length() > 1)
+		//System.out.println("max: "+max+ "lexemas:"+lexemas.size());
+        for (int i = 0; i < lexemas.size(); i++) {
+            if (lexemas.get(i).length() > 1)
                 if (tipos.get(i).length() > 3)
-                    System.out.println(lexema.get(i) + "\t" + tipos.get(i) + "\t" + valor.get(i));
+                    System.out.println(lexemas.get(i) + "\t" + tipos.get(i) + "\t" + valores.get(i));
                 else
-                    System.out.println(lexema.get(i) + "\t" + tipos.get(i) + "\t\t" + valor.get(i));
+                    System.out.println(lexemas.get(i) + "\t" + tipos.get(i) + "\t\t" + valores.get(i));
             else if (tipos.get(i).length() > 3)
-                System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t" + valor.get(i));
+                System.out.println(lexemas.get(i) + "\t\t" + tipos.get(i) + "\t" + valores.get(i));
             else
-                System.out.println(lexema.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valor.get(i));
-        }*/
+                System.out.println(lexemas.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valores.get(i));
+        }
     }
 
     public static void main(String[] args) {
