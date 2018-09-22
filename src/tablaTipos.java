@@ -8,7 +8,7 @@ public class tablaTipos {
 
     public final String ARCHIVO;                                        // Constante que aloja la ruta del archivo a leer
     File escritorio;                                                    // Objeto que contiene la ruta completa, con el nombre del archivo
-    ArrayList<String> lectura;                                          // Cadena que contendrá cada linea del archivo de texto
+    ArrayList<String> lectura;                                          // linea que contendrá cada linea del archivo de texto
     String lineaActual;
 
     //Constructor no nulo
@@ -19,6 +19,8 @@ public class tablaTipos {
         lineaActual = "";                                               //
 
         this.entrada();                                                 // llamada al metodo entrada()
+        
+        this.sintactico();
     }
 
     //Lectura de datos de archivo de texto
@@ -50,9 +52,9 @@ public class tablaTipos {
     }
 
     //Separador de palabras
-    public String[] separador(String cadena)        //Para usarlo, utiliza ArrayList lectura.get(i); para obtener el string que deseas separar
+    public String[] separador(String linea)        //Para usarlo, utiliza ArrayList lectura.get(i); para obtener el string que deseas separar
     {
-        return cadena.split("[,; ]+");  // regex que omite comas, espacios y punto y comas, tantas como sean
+        return linea.split("[,; ]+");  // regex que omite comas, espacios y punto y comas, tantas como sean
     }
 
     //Metodo auxiliar para detectar numeros reales
@@ -69,33 +71,45 @@ public class tablaTipos {
         return true;                            // Si logro analizar el string sin problemas, retorna que si es digito
     }
 
-    public void analisisSintactico(String[] Cadena) {
-        //Cadena contiene strings de cada linea
+    public void sintactico() {
+        //linea contiene strings de cada linea
         String auxTipo;
-        if (Cadena[0].equals("int") || Cadena[0].equals("String") || Cadena[0].equals("float") || Cadena[0].equals("boolean") || Cadena[0].equals("char")) {
-            //Se esta declarando una variable
-            auxTipo = Cadena[0];
-            for (int i = 1; i <= Cadena.length; i++) {
-                if (Cadena[i].equals(",")) {
-                    //no hace nada
-                } else {
-                    //metodo de busqueda e insercion en la tabla de tipos
-                    //agregartablatipos(Cadena.[i], auxTipo, "");
-                }
-            }//termina for
-        }//termina if
-        else {
-            //agregartablatipo(Cadena.[0],"", "")//no se si sera vacio o no
-            if (isNumeric(Cadena[2])) {
-                //Se esta asignando un valor
-                //agregartablatipos(Cadena[0],"",Cadena[2]);
-            } else {
-                //Se esta realizando una operacion
-                //agregartablatipos(Cadena[2],"","");
-                //agregartablatipos(Cadena[4],"","");
-            }//termina else
+        String[] linea;
+        //conversion de las lineas completas a elementos almacenados en un vector
+        for(int j=0; j<lectura.size(); j++){
+        	linea=separador(lectura.get(j));	
+        	if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char")) {
+	            //Se esta declarando una variable
+	            auxTipo = linea[0];
+	            for (int i = 1; i < linea.length; i++) {
+	                if (linea[i].equals(",")) {
+	                    //no hace nada
+	                } else {
+	                    //metodo de busqueda e insercion en la tabla de tipos
+	                    //agregartablatipos(linea.[i], auxTipo, "");
+	                }
+	            }//termina for
+	        }//termina if
+	        else {
+	            //agregartablatipo(linea.[0],"", "")//no se si sera vacio o no
+	            if (isNumeric(linea[2])) {
+	                //Se esta asignando un valor
+	                //agregartablatipos(linea[0],"",linea[2]);
+	            } else {
+	                //Se esta realizando una operacion
+	                //agregartablatipos(linea[2],"","");
+	                //agregartablatipos(linea[4],"","");
+	            }//termina else
 
         }//termina else
+        	
+        	
+        	
+        	for(String a: linea){
+        		System.out.println(a);
+        	}
+        }
+        
 
     }//termina metodo
 
