@@ -25,7 +25,8 @@ public class tablaTipos {
         this.entrada();                                                 // llamada al metodo entrada()
         this.sintactico();
        // this.detectarError();
-        this.imprimirTablaSimbolos();
+       this.imprimirTablaSimbolos();
+       
     }
 
     //Lectura de datos de archivo de texto
@@ -40,9 +41,12 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)        // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
-                instrucciones = lineaActual.split(";");           // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt
-                lectura.addAll(Arrays.asList(instrucciones));           // itera cada palabra y guarda cada instruccion que esta dentro del vector en un Arreglo de Lista
-                //System.out.println("Linea leida: "+lineaActual);        // Cada elemento del arrayList es una linea completa del archivo de texto
+            	if(lineaActual.length()!=0){
+            	
+                	instrucciones = lineaActual.split(";");           // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt
+                	lectura.addAll(Arrays.asList(instrucciones));           // itera cada palabra y guarda cada instruccion que esta dentro del vector en un Arreglo de Lista
+                	//System.out.println("Linea leida: "+lineaActual);        // Cada elemento del arrayList es una linea completa del archivo de texto
+            	}
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,13 +94,19 @@ public class tablaTipos {
                 auxTipo = linea[0];
                 for (int i = 1; i < linea.length; i++) {
                     agregarTablaSimbolos(linea[i], auxTipo, "");
+                    //System.out.println("entro a for "+linea[i]);
                 }//termina for
                 lineaAux++;
+                //System.out.println("entro al declarar "+auxTipo);
             }//termina if
             else {
                 if (isNumeric(linea[2])) {
                     //Se esta asignando un valor
                     agregarTablaSimbolos(linea[0], "", linea[2]);
+                    
+                    if(tipos.get(lexemas.indexOf(linea[0])).equals("")){
+                    	System.out.println("Error de variable indefinida en '"+lexemas.get(lexemas.indexOf(linea[0]))+"' en la linea "+lineaAux+"\nInstruccion: "+l+"\n");
+                    }
                     lineaAux++;
                 } else {
                     //Se esta realizando una operacion
@@ -120,11 +130,18 @@ public class tablaTipos {
             lexemas.add(lexema);        // lo agrega, con su tipo y valor
             tipos.add(tipo);
             valores.add(valor);
+            //System.out.println("a "+lexema+" "+tipo+" "+valor);
         }else                               // Si si existe
         {
             indice = lexemas.indexOf(lexema);   // Se obtiene el indice de ese lexema
+           // System.out.println("No lo ha agregado afuera "+tipos.get(indice)+" lexema: " +lexemas.get(indice));
             if(tipos.get(indice).equals(""))    // Si su tipo esta vacio en la tabla
-                tipos.add(indice, tipo);            //se lo agrega
+            {
+            	tipos.add(indice, tipo);            //se lo agrega
+                tipos.remove(indice);
+            }
+                
+                //System.out.println("ya agrego valor "+tipos.get(indice)+" lexema: " +lexemas.get(indice));
 
             if(valores.get(indice).equals(""))  // Si su valor esta vacio en la tabla
                 valores.add(indice,valor);          // se lo agrega
