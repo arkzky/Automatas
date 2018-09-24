@@ -3,13 +3,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class tablaTipos {
 
     private File escritorio;                                                    // Objeto que contiene la ruta completa, con el nombre del archivo
     private ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     private String lineaActual;                                                     // Es la cadena que almacenara cada linea del texto.txt
+    private int lineaAux;
 
     //Constructor no nulo
     private tablaTipos() {
@@ -21,6 +22,7 @@ public class tablaTipos {
         tipos = new ArrayList<>();
         valores = new ArrayList<>();
         lineaActual = "";                                               //
+        lineaAux = 0;                                                   //
 
         this.entrada();                                                 // llamada al metodo entrada()
         this.sintactico();
@@ -41,10 +43,13 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)        // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
-            	if(lineaActual.length()!=0){
-            	
-                	instrucciones = lineaActual.split(";");           // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt
-                	lectura.addAll(Arrays.asList(instrucciones));           // itera cada palabra y guarda cada instruccion que esta dentro del vector en un Arreglo de Lista
+                lineaAux++;
+                if(lineaActual.length()!=0){
+                	instrucciones = lineaActual.trim().split(";");        // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt. trim() elimina tabs y espacios de la linea
+                    for (String ins : instrucciones) {
+                        lectura.add(ins.trim());                                // Traslada las instrucciones alojadas en el vector "instrucciones" al ArrayList "lectura". trim() elimina tabs y espacios entre instrucciones
+                    }
+                	//lectura.addAll(Arrays.asList(instrucciones));
                 	//System.out.println("Linea leida: "+lineaActual);        // Cada elemento del arrayList es una linea completa del archivo de texto
             	}
             }
@@ -85,38 +90,97 @@ public class tablaTipos {
         //linea contiene strings de cada linea
         String auxTipo;
         String[] linea;
-        int lineaAux=0;
         //conversion de las lineas completas a elementos almacenados en un vector
         for (String l : lectura) {
             linea = separador(l);                    // Separa cada instruccion contenida en lectura y se lo asigna a linea
-            if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char")) {
-                //Se esta declarando una variable
-                auxTipo = linea[0];
-                for (int i = 1; i < linea.length; i++) {
-                    agregarTablaSimbolos(linea[i], auxTipo, "");
-                    //System.out.println("entro a for "+linea[i]);
-                }//termina for
-                lineaAux++;
-                //System.out.println("entro al declarar "+auxTipo);
-            }//termina if
-            else {
-                if (isNumeric(linea[2])) {
-                    //Se esta asignando un valor
-                    agregarTablaSimbolos(linea[0], "", linea[2]);
-                    
-                    if(tipos.get(lexemas.indexOf(linea[0])).equals("")){
-                    	System.out.println("Error de variable indefinida en '"+lexemas.get(lexemas.indexOf(linea[0]))+"' en la linea "+lineaAux+"\nInstruccion: "+l+"\n");
+            if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char"))
+            {
+                                auxTipo = linea[0];
+                if (linea.length < 4)
+                {   // SOLO ES DECLACION
+                    for (int i = 1; i < linea.length; i++)
+                    {
+                        agregarTablaSimbolos(linea[i], auxTipo, "");
+                        //System.out.println("entro al declarar "+auxTipo);
+                    }//termina for
+                    //lineaAux++;
+                } else  // ES DECLARACION CON ASIGNACION U OPERACION
+                    {
+                        if (isNumeric(linea[3]))
+                        {
+                            //Se esta asignando un numero
+                            agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
+                            if (tipos.get(lexemas.indexOf(linea[1])).equals(""))
+                            {
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) + "' en la linea " + lineaAux + "\nInstruccion: " + l + "\n");
+                            }
+                            //lineaAux++;
+                        } else if (linea[3].equals("true") || linea[3].equals("false"))
+                                {   // Se asigna un booleano
+                                    agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
+                                    //lineaAux++;
+                                } else if (linea[3].startsWith("'") && linea[3].endsWith("'"))
+                                        {   // es un char
+                                            // quitar comillas: String.valueOf(linea[3].charAt(1))
+                                            agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
+                                            //lineaAux++;
+                                        } else if (!isNumeric(linea[3]) && linea[3].startsWith(Character.toString('"')))
+                                                {   // es String
+                                                    agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
+                                                    //lineaAux++;
+                                                } else if (l.contains("+") || l.contains("-") || l.contains("/") || l.contains("*"))
+                                                        {
+                                                            //Se esta realizando una operacion
+                                                            agregarTablaSimbolos(linea[1], auxTipo, "");
+                                                            agregarTablaSimbolos(linea[3], "", "");
+                                                            agregarTablaSimbolos(linea[5], "", "");
+                                                            //lineaAux++;
+                                                            detectarError(linea[1], linea[3], linea[5], lineaAux, l);
+
+                                                        }//termina else
+                                                        else    // ERROR
+                                                        {
+                                                            System.out.println("Error lexico: " + linea[3]);
+                                                        }
                     }
-                    lineaAux++;
-                } else {
-                    //Se esta realizando una operacion
-                    agregarTablaSimbolos(linea[0], "", "");
-                    agregarTablaSimbolos(linea[2], "", "");
-                    agregarTablaSimbolos(linea[4], "", "");
-                    lineaAux++;
-                    detectarError(linea[0],linea[2],linea[4], lineaAux, l);
-                    
-                }//termina else
+            }//termina if
+            else{   // NO EXISTE DECLARACION (Es asignacion u operacion)
+                    if (isNumeric(linea[2])) {
+                        //Se esta asignando un numero
+                        agregarTablaSimbolos(linea[0], "", linea[2]);
+
+                        if (tipos.get(lexemas.indexOf(linea[0])).equals("")) {
+                            System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "' en la linea " + lineaAux + "\nInstruccion: " + l + "\n");
+                        }
+                        //lineaAux++;
+                        } else if (linea[2].equals("true") || linea[2].equals("false"))
+                                {   // Se asigna un booleano
+                                    agregarTablaSimbolos(linea[0], "", linea[2]);
+                                    //lineaAux++;
+                                } else if (linea[2].startsWith("'") && linea[2].endsWith("'"))
+                                        {
+                                            // es un char
+                                            // quitar comillas: String.valueOf(linea[2].charAt(1))
+                                            agregarTablaSimbolos(linea[0], "", linea[2]);
+                                            //lineaAux++;
+                                        } else if (!isNumeric(linea[2]) && linea[2].startsWith(Character.toString('"')))
+                                                {   // es String
+                                                    agregarTablaSimbolos(linea[0], "", linea[2]);
+                                                    //lineaAux++;
+                                                } else if (l.contains("+") || l.contains("-") || l.contains("/") || l.contains("*"))
+                                                        {
+                                                            //Se esta realizando una operacion
+                                                            agregarTablaSimbolos(linea[0], "", "");
+                                                            agregarTablaSimbolos(linea[2], "", "");
+                                                            agregarTablaSimbolos(linea[4], "", "");
+                                                            //lineaAux++;
+                                                            detectarError(linea[0], linea[2], linea[4], lineaAux, l);
+
+                                                        }//termina else
+                                                        else    // ERROR
+                                                        {
+                                                            System.out.println("Error lexico: " + linea[2]);
+                                                        }
 
             }//termina else
         }
@@ -125,6 +189,7 @@ public class tablaTipos {
     private void agregarTablaSimbolos(String lexema, String tipo, String valor)
     {
         int indice;
+        //System.out.println(valor);
         if(!lexemas.contains(lexema))    // Si el lexema no existe en la tabla de simbolos
         {
             lexemas.add(lexema);        // lo agrega, con su tipo y valor
@@ -134,17 +199,17 @@ public class tablaTipos {
         }else                               // Si si existe
         {
             indice = lexemas.indexOf(lexema);   // Se obtiene el indice de ese lexema
-           // System.out.println("No lo ha agregado afuera "+tipos.get(indice)+" lexema: " +lexemas.get(indice));
+
             if(tipos.get(indice).equals(""))    // Si su tipo esta vacio en la tabla
             {
-            	tipos.add(indice, tipo);            //se lo agrega
-                tipos.remove(indice);
+                tipos.add(indice, tipo);            //se lo agrega
+                tipos.remove(indice+1);     // osea, la siguiente (el anterior valor)
             }
-                
-                //System.out.println("ya agrego valor "+tipos.get(indice)+" lexema: " +lexemas.get(indice));
 
-            if(valores.get(indice).equals(""))  // Si su valor esta vacio en la tabla
-                valores.add(indice,valor);          // se lo agrega
+            if(valores.get(indice).equals("")) {  // Si su valor esta vacio en la tabla
+                valores.add(indice, valor);          // se lo agrega
+                valores.remove(indice+1);    // osea, la siguiente (el anterior valor)
+            }
         }
     }
 
@@ -175,22 +240,32 @@ public class tablaTipos {
 
     private void imprimirTablaSimbolos() {
         //CODIGO PARA IMPRIMIR TABLA DE SIMBOLOS
-        System.out.println("\nLexema\t\tTipo\t\tValor");
-        for (int i = 0; i < lexemas.size(); i++)
-        {
-            if (lexemas.get(i).length() > 1)
-            {
-                if (tipos.get(i).length() > 3)
-                    System.out.println(lexemas.get(i) + "\t" + tipos.get(i) + "\t" + valores.get(i));
-                else
-                    System.out.println(lexemas.get(i) + "\t" + tipos.get(i) + "\t\t" + valores.get(i));
-            }else if (tipos.get(i).length() > 3)
-                System.out.println(lexemas.get(i) + "\t\t" + tipos.get(i) + "\t" + valores.get(i));
-            else
-                System.out.println(lexemas.get(i) + "\t\t" + tipos.get(i) + "\t\t" + valores.get(i));
+        int maxL = 0;
 
-            /*Para calcular la longitud de los digitos de valor (en caso de que se agregue una columna a la izquierda y sea necesario para darle formato a la salida)*/
-            //length = (int)(Math.log10(valor.get(i))+1) > 1
+        for (String lex : lexemas) {
+            if(maxL < lex.length()) {
+                maxL = lex.length();
+            }
+        }
+
+
+        if(maxL > 19)
+        {
+            System.out.printf("%"+(((maxL+25)/2)+9)+"s","TABLA DE SIMBOLOS");                                       //Posicion dinamica: 25 es la distancia que hay entre tipo y el final de la palabra valor. /2 para que este en medio, pero como ademas debe estar centrado + 9 que es la mitad de la longitud de "TABLA DE SIMBOLOS"
+            System.out.printf("%-"+(maxL+2)+"s%-20s%s","\nLEXEMA","TIPO","VALOR\n");
+            for (int i = 0; i < tipos.size(); i++)
+            {
+                System.out.printf("%-"+(maxL+1)+"s%-20s%s%s",lexemas.get(i), tipos.get(i), valores.get(i),"\n");
+            }
+        }
+        else
+        {
+            System.out.printf("%30s","TABLA DE SIMBOLOS");
+            System.out.printf("%-21s%-20s%s","\nLEXEMA","TIPO","VALOR\n");
+            for (int i = 0; i < tipos.size(); i++)
+            {
+                System.out.printf("%-20s%-20s%s%s",lexemas.get(i), tipos.get(i), valores.get(i),"\n");
+            }
         }
     }
 
