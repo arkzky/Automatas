@@ -96,7 +96,7 @@ public class tablaTipos {
             if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char"))
             {
                                 auxTipo = linea[0];
-                if (linea.length < 4)
+                if (l.contains(","))
                 {   // SOLO ES DECLACION
                     for (int i = 1; i < linea.length; i++)
                     {
