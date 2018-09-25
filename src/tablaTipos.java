@@ -226,11 +226,11 @@ public class tablaTipos {
     		System.out.println("Error de variable indefinida en '"+lexemas.get(indice3)+"'\nInstruccion: "+instruccion+"\n");
     	else {
             if (!tipos.get(indice).equals(tipos.get(indice2)))
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "'\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+"\n");
             if (!tipos.get(indice).equals(tipos.get(indice3)))
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "'\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+"\n");
             if (!tipos.get(indice2).equals(tipos.get(indice3))) {
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "'\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+"\n");
             }
         }
     }
