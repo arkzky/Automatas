@@ -10,7 +10,6 @@ public class tablaTipos {
     private File escritorio;                                                    // Objeto que contiene la ruta completa, con el nombre del archivo
     private ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     private String lineaActual;                                                     // Es la cadena que almacenara cada linea del texto.txt
-    private int lineaAux;
 
     //Constructor no nulo
     private tablaTipos() {
@@ -22,7 +21,6 @@ public class tablaTipos {
         tipos = new ArrayList<>();
         valores = new ArrayList<>();
         lineaActual = "";                                               //
-        lineaAux = 0;                                                   //
 
         this.entrada();                                                 // llamada al metodo entrada()
         this.sintactico();
@@ -43,7 +41,6 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)        // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
-                lineaAux++;
                 if(lineaActual.length()!=0){
                 	instrucciones = lineaActual.trim().split(";");        // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt. trim() elimina tabs y espacios de la linea
                     for (String ins : instrucciones) {
@@ -96,8 +93,8 @@ public class tablaTipos {
             if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char"))
             {
                                 auxTipo = linea[0];
-                if (l.contains(","))
-                {   // SOLO ES DECLACION
+                if (l.contains(",") || l.length() > 5)
+                {   // SOLO ES DECLARACION
                     for (int i = 1; i < linea.length; i++)
                     {
                         agregarTablaSimbolos(linea[i], auxTipo, "");
@@ -112,7 +109,7 @@ public class tablaTipos {
                             agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
                             if (tipos.get(lexemas.indexOf(linea[1])).equals(""))
                             {
-                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) + "' en la linea " + lineaAux + "\nInstruccion: " + l + "\n");
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) +  "'\nInstruccion: " + l + "\n");
                             }
                             //lineaAux++;
                         } else if (linea[3].equals("true") || linea[3].equals("false"))
@@ -124,7 +121,7 @@ public class tablaTipos {
                                             // quitar comillas: String.valueOf(linea[3].charAt(1))
                                             agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
                                             //lineaAux++;
-                                        } else if (!isNumeric(linea[3]) && linea[3].startsWith(Character.toString('"')))
+                                        } else if (linea[3].startsWith(Character.toString('"')))
                                                 {   // es String
                                                     agregarTablaSimbolos(linea[1], auxTipo, linea[3]);
                                                     //lineaAux++;
@@ -135,7 +132,7 @@ public class tablaTipos {
                                                             agregarTablaSimbolos(linea[3], "", "");
                                                             agregarTablaSimbolos(linea[5], "", "");
                                                             //lineaAux++;
-                                                            detectarError(linea[1], linea[3], linea[5], lineaAux, l);
+                                                            detectarError(linea[1], linea[3], linea[5], l);
 
                                                         }//termina else
                                                         else    // ERROR
@@ -150,7 +147,7 @@ public class tablaTipos {
                         agregarTablaSimbolos(linea[0], "", linea[2]);
 
                         if (tipos.get(lexemas.indexOf(linea[0])).equals("")) {
-                            System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "' en la linea " + lineaAux + "\nInstruccion: " + l + "\n");
+                            System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "'\nInstruccion: " + l + "\n");
                         }
                         //lineaAux++;
                         } else if (linea[2].equals("true") || linea[2].equals("false"))
@@ -174,7 +171,7 @@ public class tablaTipos {
                                                             agregarTablaSimbolos(linea[2], "", "");
                                                             agregarTablaSimbolos(linea[4], "", "");
                                                             //lineaAux++;
-                                                            detectarError(linea[0], linea[2], linea[4], lineaAux, l);
+                                                            detectarError(linea[0], linea[2], linea[4], l);
 
                                                         }//termina else
                                                         else    // ERROR
@@ -213,7 +210,7 @@ public class tablaTipos {
         }
     }
 
-    private void detectarError(String resul, String variable, String variable1, int lineaAux, String instruccion)
+    private void detectarError(String resul, String variable, String variable1, String instruccion)
     {
     	//paso los 3 lexemas al metodo
     	int indice, indice2, indice3;
@@ -222,18 +219,18 @@ public class tablaTipos {
     	indice3 = lexemas.indexOf(resul);
 
     	if(tipos.get(indice).equals(""))
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"' en la linea "+lineaAux+"\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+"\n");
     	if(tipos.get(indice2).equals(""))
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"' en la linea "+lineaAux+"\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+"\n");
     	if(tipos.get(indice3).equals(""))
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice3)+"' en la linea "+lineaAux+"\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice3)+"'\nInstruccion: "+instruccion+"\n");
     	else {
             if (!tipos.get(indice).equals(tipos.get(indice2)))
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " en la linea " + lineaAux + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "'\nInstruccion: " + instruccion+"\n");
             if (!tipos.get(indice).equals(tipos.get(indice3)))
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + " en la linea " + lineaAux + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "'\nInstruccion: " + instruccion+"\n");
             if (!tipos.get(indice2).equals(tipos.get(indice3))) {
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + " en la linea " + lineaAux + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "'\nInstruccion: " + instruccion+"\n");
             }
         }
     }
