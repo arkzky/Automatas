@@ -9,6 +9,7 @@ public class tablaTipos {
     private File escritorio;                                                       // Objeto que contiene la ruta completa, con el nombre del archivo
     private ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     private String lineaActual;                                                    // Es la cadena que almacenara cada linea del texto.txt
+    private int contador;
 
     //Constructor no nulo
     private tablaTipos() {
@@ -19,10 +20,11 @@ public class tablaTipos {
         tipos = new ArrayList<>();
         valores = new ArrayList<>();
         lineaActual = "";                                                           //
+        contador = 0;
 
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
-       this.imprimirTablaSimbolos();
+        this.imprimirTablaSimbolos();
     }
 
     //Lectura de datos de archivo de texto
@@ -37,6 +39,8 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)                           // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
+                if(lineaActual.trim().equals("{") || lineaActual.trim().equals("}"))
+                    continue;
                 if(lineaActual.length()!=0){
                 	instrucciones = lineaActual.trim().split(";");            // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt. trim() elimina tabs y espacios de la linea
                     for (String ins : instrucciones) {                              // Cada elemento del arrayList es una linea completa del archivo de texto
@@ -75,6 +79,41 @@ public class tablaTipos {
                 return false;
         }
         return true;                                                               // Si logro analizar el string sin problemas, retorna que si es digito
+    }
+
+    private boolean isInt(String str){
+        for (char c : str.toCharArray()){
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isFloat(String str){
+        if(isNumeric(str) && str.contains("."))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    private void verificador(String linea)
+    {
+        if( isInt( linea ) )
+        {
+            agregarTablaSimbolos(linea,"int", linea);
+        }else if(isFloat( linea) )
+        {
+            agregarTablaSimbolos(linea,"float", linea);
+        }else if (linea.equals("true") || linea.equals("false"))
+        {
+            agregarTablaSimbolos(linea, "boolean", linea);
+        } else { // fue un lexema
+            agregarTablaSimbolos(linea,"","");
+        }
     }
 
     private void sintactico() {
@@ -130,45 +169,155 @@ public class tablaTipos {
                                                         }
                     }
             }//termina if
-            else{   // NO EXISTE DECLARACION (Es asignacion u operacion)    Ej. x = 1; o x = a + b;
-                    if (isNumeric(linea[2])) {
-                        //Se esta asignando un numero
-                        agregarTablaSimbolos(linea[0], "", linea[2]);
-
-                        if (tipos.get(lexemas.indexOf(linea[0])).equals("")) {
-                            System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "'\nInstruccion: " + l + "\n");
+            else if(linea[0].toLowerCase().equals("while"))
+                { // es un while
+                    // while(x==1)
+                    if(!linea[2].equals("("))
+                    {
+                        verificador(linea[2]);
+                        if(linea[3].equals("==") || linea[3].equals(">") || linea[3].equals("<") || linea[3].equals(">=") || linea[3].equals("<="))
+                        {
+                            verificador(linea[4]);
+                            detectarError(linea[2],linea[4], l);
                         }
-                        //lineaAux++;
-                        } else if (linea[2].equals("true") || linea[2].equals("false"))
-                                {   // Se asigna un booleano
-                                    agregarTablaSimbolos(linea[0], "", linea[2]);
-                                    //lineaAux++;
-                                } else if (linea[2].startsWith("'") && linea[2].endsWith("'"))
-                                        {
-                                            // es un char
-                                            // quitar comillas: String.valueOf(linea[2].charAt(1))
-                                            agregarTablaSimbolos(linea[0], "", linea[2]);
-                                            //lineaAux++;
-                                        } else if (!isNumeric(linea[2]) && linea[2].startsWith(Character.toString('"')))
-                                                {   // es String
-                                                    agregarTablaSimbolos(linea[0], "", linea[2]);
-                                                    //lineaAux++;
-                                                } else if (l.contains("+") || l.contains("-") || l.contains("/") || l.contains("*"))
-                                                        {
-                                                            //Se esta realizando una operacion
-                                                            agregarTablaSimbolos(linea[0], "", "");
-                                                            agregarTablaSimbolos(linea[2], "", "");
-                                                            agregarTablaSimbolos(linea[4], "", "");
-                                                            //lineaAux++;
-                                                            detectarError(linea[0], linea[2], linea[4], l);
+                        if(linea[3].equals("&&") || linea[3].equals("||"))
+                        {
+                            if(linea[4].equals("("))
+                            {
+                                String tipo = " ", lexema = "";
+                                verificador(linea[5]);
+                                verificador(linea[7]);
+                                detectarError(linea[5], linea[7], l);
+                                if(linea[6].equals("==") || linea[6].equals(">") || linea[6].equals("<") || linea[6].equals(">=") || linea[6].equals("<=")) {
+                                    tipo = "boolean";
+                                }
+                                contador++;
+                                lexema = "ExprBool ("+contador+")";
+                                agregarTablaSimbolos( lexema , tipo , linea[5]+linea[6]+linea[7]);
+                                detectarError(linea[2], lexema, l);
+                            }
+                            else
+                            {
+                                verificador(linea[4]);
+                                detectarError( linea[2], linea[4], l );
+                            }
 
-                                                        }//termina else
-                                                        else    // ERROR
-                                                        {
-                                                            System.out.println("Error lexico: " + linea[2]);
-                                                        }
+                        }
+                    }else
+                    {
+                        String tipo1 = " ", tipo2 = " ", lexema1 = "", lexema2 = "";
+                        verificador(linea[3]);
+                        verificador(linea[5]);
+                        detectarError(linea[3], linea[5], l);
+                        if(linea[4].equals("==") || linea[4].equals(">") || linea[4].equals("<") || linea[4].equals(">=") || linea[4].equals("<="))
+                        {
+                            tipo1 = "boolean";
+                        }
+                        contador++;
+                        lexema1 = "ExprBool (" + contador + ")";
+                        agregarTablaSimbolos(lexema1,tipo1,linea[3]+linea[4]+linea[5]);
+                            if(linea[7].equals("&&") || linea[7].equals("||"))
+                            {
+                                if(linea[8].equals("("))
+                                {
+                                    verificador(linea[9]);
+                                    verificador(linea[11]);
+                                    detectarError(linea[9], linea[11], l);
+                                    if(linea[10].equals("==") || linea[10].equals(">") || linea[10].equals("<") || linea[10].equals(">=") || linea[10].equals("<="))
+                                    {
+                                        tipo2 = "boolean";
+                                    }
+                                    contador++;
+                                    lexema2 = "ExprBool ("+ contador + ")";
+                                    agregarTablaSimbolos(lexema2, tipo2, linea[9]+linea[10]+linea[11]);
+                                    detectarError(lexema1,lexema2,l);
+                                }else{
+                                    verificador(linea[8]);
+                                    detectarError(lexema1, linea[8], l);
+                                }
+                            }
 
-            }//termina else
+                    }
+                    /* ORDEN:   0 -> while
+                                1-> (
+                                    2-> X o 1 o True
+                                        3 -> logico ("&&" o "||")
+                                                4 -> X o 1 | True | False
+                                                        5 -> )
+                                                4 -> (
+                                                    5 -> X o 1
+                                                        6 -> relacional (==, >, <, <=, >=)
+                                                            7 -> X o 1
+                                                                8 -> )
+                                                                    9 -> )
+                                        3 -> relacional (==, >, <, <=, >=)
+                                                4 -> X o 1 o True o False
+                                                    5 -> )
+
+                                    2 -> (
+                                        3 ->  X o 1 ->
+                                                4 -> relacional (==, >, <, <=, >=)
+                                                    5 -> X | 1
+                                                        6 -> )
+                                                            7 -> logico("&&" o "||")
+                                                                8 -> X
+                                                                    9 -> )
+                                                                8 -> (
+                                                                    9 -> X o 1
+                                                                        10 -> relacional (==, >, <, <=, >=)
+                                                                            11 -> X o 1
+                                                                                12 -> )
+                                                                                    13 -> )
+                    while(x==1)
+                    while(x==true)
+                    while((x<7)||(y<4))
+                    while((x<7)||x)
+                    while(x<2)
+                    while(x||(x<3))
+                    while(x||True)
+                    while(True ||(y<3))
+                    */
+
+                }else
+                    {   // NO EXISTE DECLARACION (Es asignacion u operacion)    Ej. x = 1; o x = a + b;
+                        if (isNumeric(linea[2])) {
+                            //Se esta asignando un numero
+                            agregarTablaSimbolos(linea[0], "", linea[2]);
+
+                            if (tipos.get(lexemas.indexOf(linea[0])).equals("")) {
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "'\nInstruccion: " + l + "\n");
+                            }
+                            //lineaAux++;
+                            } else if (linea[2].equals("true") || linea[2].equals("false"))
+                                    {   // Se asigna un booleano
+                                        agregarTablaSimbolos(linea[0], "", linea[2]);
+                                        //lineaAux++;
+                                    } else if (linea[2].startsWith("'") && linea[2].endsWith("'"))
+                                            {
+                                                // es un char
+                                                // quitar comillas: String.valueOf(linea[2].charAt(1))
+                                                agregarTablaSimbolos(linea[0], "", linea[2]);
+                                                //lineaAux++;
+                                            } else if (!isNumeric(linea[2]) && linea[2].startsWith(Character.toString('"')))
+                                                    {   // es String
+                                                        agregarTablaSimbolos(linea[0], "", linea[2]);
+                                                        //lineaAux++;
+                                                    } else if (l.contains("+") || l.contains("-") || l.contains("/") || l.contains("*"))
+                                                            {
+                                                                //Se esta realizando una operacion
+                                                                agregarTablaSimbolos(linea[0], "", "");
+                                                                agregarTablaSimbolos(linea[2], "", "");
+                                                                agregarTablaSimbolos(linea[4], "", "");
+                                                                //lineaAux++;
+                                                                detectarError(linea[0], linea[2], linea[4], l);
+
+                                                            }//termina else
+                                                            else    // ERROR
+                                                            {
+                                                                System.out.println("Error lexico: " + linea[2]);
+                                                            }
+
+                }//termina else
         }
     }//termina metodo
 
@@ -218,6 +367,22 @@ public class tablaTipos {
             if (!tipos.get(indice2).equals(tipos.get(indice3))) {
                 System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+"\n");
             }
+        }
+    }
+
+    private void detectarError(String variable, String variable1, String instruccion)         // DETECTA ERRORES CUANDO SE EVALUA EN WHILE
+    {
+        int indice, indice2;                                                                       //Se pasan los 3 lexemas al metodo
+        indice = lexemas.indexOf(variable);
+        indice2 = lexemas.indexOf(variable1);
+
+        if(tipos.get(indice).equals(""))                                                                    // Si el tipo de las variables es vacio, ocurre un error
+            System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+"\n");
+        if(tipos.get(indice2).equals(""))
+            System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+"\n");
+        else {
+            if (!tipos.get(indice).equals(tipos.get(indice2)))                                              // Si el tipo de la variable 1 es diferente al de la variable 2, ocurre un error
+                System.out.println("Error de incompatibilidad de tipos entre el elemento '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y el elemento '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+"\n");
         }
     }
 
