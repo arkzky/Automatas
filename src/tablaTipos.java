@@ -180,7 +180,7 @@ public class tablaTipos {
                             verificador(linea[4]);
                             detectarError(linea[2],linea[4], l);
                         }
-                        if(linea[3].equals("&&") || linea[3].equals("||"))
+                        if(linea[3].equals("&&") || linea[3].equals("||") || linea[3].equals("!="))
                         {
                             if(linea[4].equals("("))
                             {
@@ -216,7 +216,7 @@ public class tablaTipos {
                         contador++;
                         lexema1 = "ExprBool (" + contador + ")";
                         agregarTablaSimbolos(lexema1,tipo1,linea[3]+linea[4]+linea[5]);
-                            if(linea[7].equals("&&") || linea[7].equals("||"))
+                            if(linea[7].equals("&&") || linea[7].equals("||") || linea[7].equals("!="))
                             {
                                 if(linea[8].equals("("))
                                 {
