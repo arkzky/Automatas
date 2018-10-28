@@ -9,11 +9,9 @@ import java.io.PrintWriter;
 public class tablaTipos {
 
     private File archivo;                                                       // Objeto que contiene la ruta completa, con el nombre del archivo
-    private FileWriter escribir;
-    private PrintWriter imprimeLinea;
     private ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     private String lineaActual;                                                    // Es la cadena que almacenara cada linea del texto.txt
-    private int contador;
+    private int contador, noLinea;
 
     //Constructor no nulo
     private tablaTipos() {
@@ -23,13 +21,18 @@ public class tablaTipos {
         valores = new ArrayList<>();
         lineaActual = "";                                                           //
         contador = 0;
+        noLinea = 0;
 
         this.crearArchivo();
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
         this.imprimirTablaSimbolos();
+        for (String l : lectura) {
+            System.out.println(l);
+        }
     }
 
+    // Creacion de archivo a leer si no existe
     private void crearArchivo(){
         try {
             String rutaAbsoluta = System.getProperty("user.home") + "\\Desktop\\texto.txt";        // Constante que aloja la ruta del archivo a leer
@@ -38,8 +41,8 @@ public class tablaTipos {
                 System.out.println("El archivo "+rutaAbsoluta+" fue creado satisfactoriamente");
 
                 try {
-                    escribir = new FileWriter(rutaAbsoluta, true);
-                    imprimeLinea = new PrintWriter(escribir);
+                    FileWriter escribir = new FileWriter(rutaAbsoluta, true);
+                    PrintWriter imprimeLinea = new PrintWriter(escribir);
                     imprimeLinea.printf("%s" + "%n", "int x;");
                     imprimeLinea.printf("%s" + "%n", "boolean y;");
                     imprimeLinea.printf("%s" + "%n", "while ( x != y ){");
@@ -56,6 +59,7 @@ public class tablaTipos {
             System.out.println("ERROR_CREACIÓN_ARCHIVO");
         }
     }
+
     //Lectura de datos de archivo de texto
     private void entrada() {
         BufferedReader br = null;
@@ -68,8 +72,6 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)                           // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
-                if(lineaActual.trim().equals("{") || lineaActual.trim().equals("}"))
-                    continue;
                 if(lineaActual.length()!=0){
                 	instrucciones = lineaActual.trim().split(";");            // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt. trim() elimina tabs y espacios de la linea
                     for (String ins : instrucciones) {                              // Cada elemento del arrayList es una linea completa del archivo de texto
@@ -120,13 +122,7 @@ public class tablaTipos {
     }
 
     private boolean isFloat(String str){
-        if(isNumeric(str) && str.contains("."))
-        {
-            return true;
-        }else
-        {
-            return false;
-        }
+        return isNumeric(str) && str.contains(".");
     }
 
     private void verificador(String linea)
@@ -149,6 +145,12 @@ public class tablaTipos {
         String auxTipo;
         String[] linea;                                                            // Linea contiene strings de cada linea
         for (String l : lectura) {                                                 // Conversion de las lineas completas a elementos almacenados en un vector
+            if(l.equals("{") || l.equals("}"))
+            {
+                noLinea++;
+                continue;
+            }
+            noLinea++;
             linea = separador(l);                                                  // Separa cada instruccion contenida en lectura y se lo asigna a linea
             if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char")) //Si es palabra reservada
             {
@@ -167,7 +169,7 @@ public class tablaTipos {
                             agregarTablaSimbolos(linea[1], auxTipo, linea[3]);     // Se agrega a la tabla de simbolos. Linea[1] es el lexema
                             if (tipos.get(lexemas.indexOf(linea[1])).equals(""))   // Si el tipo del lexema que se agregó es vacio, ocurre un error semantico
                             {
-                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) +  "'\nInstruccion: " + l + "\n");
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) +  "'\nInstruccion: " + l + "en la linea "+noLinea+"\n");
                             }
                         } else if (linea[3].equals("true") || linea[3].equals("false"))         // Si el valor despues de la igualdad es "true" o "false"
                                 {   // Se asigna un booleano
@@ -213,7 +215,7 @@ public class tablaTipos {
                         {
                             if(linea[4].equals("("))
                             {
-                                String tipo = " ", lexema = "";
+                                String tipo = " ", lexema;
                                 verificador(linea[5]);
                                 verificador(linea[7]);
                                 detectarError(linea[5], linea[7], l);
@@ -234,7 +236,7 @@ public class tablaTipos {
                         }
                     }else
                     {
-                        String tipo1 = " ", tipo2 = " ", lexema1 = "", lexema2 = "";
+                        String tipo1 = " ", tipo2 = " ", lexema1, lexema2;
                         verificador(linea[3]);
                         verificador(linea[5]);
                         detectarError(linea[3], linea[5], l);
@@ -383,18 +385,18 @@ public class tablaTipos {
     	indice3 = lexemas.indexOf(resul);
 
     	if(tipos.get(indice).equals(""))                                                                    // Si el tipo de las variables es vacio, ocurre un error
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+" en la linea "+noLinea+"\n");
     	if(tipos.get(indice2).equals(""))
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+" en la linea "+noLinea+"\n");
     	if(tipos.get(indice3).equals(""))
-    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice3)+"'\nInstruccion: "+instruccion+"\n");
+    		System.out.println("Error de variable indefinida en '"+lexemas.get(indice3)+"'\nInstruccion: "+instruccion+" en la linea "+noLinea+"\n");
     	else {
             if (!tipos.get(indice).equals(tipos.get(indice2)))                                              // Si el tipo de la variable 1 es diferente al de la variable 2, ocurre un error
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+" en la linea "+noLinea+"\n");
             if (!tipos.get(indice).equals(tipos.get(indice3)))
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+" en la linea "+noLinea+"\n");
             if (!tipos.get(indice2).equals(tipos.get(indice3))) {
-                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre la variable '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + " y la variable '" + lexemas.get(indice3) + "' de tipo " + tipos.get(indice3) + "\nInstruccion: " + instruccion+" en la linea "+noLinea+"\n");
             }
         }
     }
@@ -406,12 +408,12 @@ public class tablaTipos {
         indice2 = lexemas.indexOf(variable1);
 
         if(tipos.get(indice).equals(""))                                                                    // Si el tipo de las variables es vacio, ocurre un error
-            System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+"\n");
+            System.out.println("Error de variable indefinida en '"+lexemas.get(indice)+"'\nInstruccion: "+instruccion+" en la linea "+noLinea+"\n");
         if(tipos.get(indice2).equals(""))
-            System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+"\n");
+            System.out.println("Error de variable indefinida en '"+lexemas.get(indice2)+"'\nInstruccion: "+instruccion+" en la linea "+noLinea+"\n");
         else {
             if (!tipos.get(indice).equals(tipos.get(indice2)))                                              // Si el tipo de la variable 1 es diferente al de la variable 2, ocurre un error
-                System.out.println("Error de incompatibilidad de tipos entre el elemento '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y el elemento '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+"\n");
+                System.out.println("Error de incompatibilidad de tipos entre el elemento '" + lexemas.get(indice) + "' de tipo " + tipos.get(indice) + " y el elemento '" + lexemas.get(indice2) + "' de tipo " + tipos.get(indice2) + "\nInstruccion: " + instruccion+" en la linea "+noLinea+"\n");
         }
     }
 
