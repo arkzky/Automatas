@@ -202,12 +202,12 @@ public class tablaTipos {
                     if(!linea[2].equals("("))
                     {
                         verificador(linea[2]);
-                        if(linea[3].equals("==") || linea[3].equals(">") || linea[3].equals("<") || linea[3].equals(">=") || linea[3].equals("<="))
+                        if(linea[3].equals("==") || linea[3].equals(">") || linea[3].equals("<") || linea[3].equals(">=") || linea[3].equals("<=") || linea[3].equals("!="))
                         {
                             verificador(linea[4]);
                             detectarError(linea[2],linea[4], l);
                         }
-                        if(linea[3].equals("&&") || linea[3].equals("||") || linea[3].equals("!=") )
+                        if(linea[3].equals("&&") || linea[3].equals("||"))
                         {
                             if(linea[4].equals("("))
                             {
@@ -215,7 +215,7 @@ public class tablaTipos {
                                 verificador(linea[5]);
                                 verificador(linea[7]);
                                 detectarError(linea[5], linea[7], l);
-                                if(linea[6].equals("==") || linea[6].equals(">") || linea[6].equals("<") || linea[6].equals(">=") || linea[6].equals("<=")) {
+                                if(linea[6].equals("==") || linea[6].equals(">") || linea[6].equals("<") || linea[6].equals(">=") || linea[6].equals("<=") || linea[6].equals("!=")) {
                                     tipo = "boolean";
                                 }
                                 contador++;
@@ -236,21 +236,21 @@ public class tablaTipos {
                         verificador(linea[3]);
                         verificador(linea[5]);
                         detectarError(linea[3], linea[5], l);
-                        if(linea[4].equals("==") || linea[4].equals(">") || linea[4].equals("<") || linea[4].equals(">=") || linea[4].equals("<="))
+                        if(linea[4].equals("==") || linea[4].equals(">") || linea[4].equals("<") || linea[4].equals(">=") || linea[4].equals("<=") || linea[4].equals("!="))
                         {
                             tipo1 = "boolean";
                         }
                         contador++;
                         lexema1 = "ExprBool (" + contador + ")";
                         agregarTablaSimbolos(lexema1,tipo1,linea[3]+linea[4]+linea[5]);
-                            if(linea[7].equals("&&") || linea[7].equals("||") || linea[7].equals("!="))
+                            if(linea[7].equals("&&") || linea[7].equals("||"))
                             {
                                 if(linea[8].equals("("))
                                 {
                                     verificador(linea[9]);
                                     verificador(linea[11]);
                                     detectarError(linea[9], linea[11], l);
-                                    if(linea[10].equals("==") || linea[10].equals(">") || linea[10].equals("<") || linea[10].equals(">=") || linea[10].equals("<="))
+                                    if(linea[10].equals("==") || linea[10].equals(">") || linea[10].equals("<") || linea[10].equals(">=") || linea[10].equals("<=") || linea[10].equals("!="))
                                     {
                                         tipo2 = "boolean";
                                     }
