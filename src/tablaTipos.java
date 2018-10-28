@@ -142,12 +142,11 @@ public class tablaTipos {
         String auxTipo;
         String[] linea;                                                            // Linea contiene strings de cada linea
         for (String l : lectura) {                                                 // Conversion de las lineas completas a elementos almacenados en un vector
+            noLinea++;
             if(l.equals("{") || l.equals("}"))
             {
-                noLinea++;
                 continue;
             }
-            noLinea++;
             linea = separador(l);                                                  // Separa cada instruccion contenida en lectura y se lo asigna a linea
             if (linea[0].equals("int") || linea[0].equals("String") || linea[0].equals("float") || linea[0].equals("boolean") || linea[0].equals("char")) //Si es palabra reservada
             {
@@ -166,7 +165,7 @@ public class tablaTipos {
                             agregarTablaSimbolos(linea[1], auxTipo, linea[3]);     // Se agrega a la tabla de simbolos. Linea[1] es el lexema
                             if (tipos.get(lexemas.indexOf(linea[1])).equals(""))   // Si el tipo del lexema que se agregó es vacio, ocurre un error semantico
                             {
-                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) +  "'\nInstruccion: " + l + "en la linea "+noLinea+"\n");
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[1])) +  "'\nInstruccion: " + l + " en la linea "+noLinea+"\n");
                             }
                         } else if (linea[3].equals("true") || linea[3].equals("false"))         // Si el valor despues de la igualdad es "true" o "false"
                                 {   // Se asigna un booleano
@@ -193,7 +192,7 @@ public class tablaTipos {
                                                         }//termina else
                                                         else    // ERROR
                                                         {
-                                                            System.out.println("Error lexico: " + linea[3]);
+                                                            System.out.println("Error lexico: " + linea[3]+" en la linea "+noLinea);
                                                         }
                     }
             }//termina if
@@ -208,7 +207,7 @@ public class tablaTipos {
                             verificador(linea[4]);
                             detectarError(linea[2],linea[4], l);
                         }
-                        if(linea[3].equals("&&") || linea[3].equals("||") || linea[3].equals("!="))
+                        if(linea[3].equals("&&") || linea[3].equals("||") || linea[3].equals("!=") )
                         {
                             if(linea[4].equals("("))
                             {
@@ -313,7 +312,7 @@ public class tablaTipos {
                             agregarTablaSimbolos(linea[0], "", linea[2]);
 
                             if (tipos.get(lexemas.indexOf(linea[0])).equals("")) {
-                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "'\nInstruccion: " + l + "\n");
+                                System.out.println("Error de variable indefinida en '" + lexemas.get(lexemas.indexOf(linea[0])) + "'\nInstruccion: " + l +" en la linea "+noLinea+"\n");
                             }
                             //lineaAux++;
                             } else if (linea[2].equals("true") || linea[2].equals("false"))
@@ -342,7 +341,7 @@ public class tablaTipos {
                                                             }//termina else
                                                             else    // ERROR
                                                             {
-                                                                System.out.println("Error lexico: " + linea[2]);
+                                                                System.out.println("Error lexico: " + linea[2]+" en la linea "+noLinea);
                                                             }
 
                 }//termina else
