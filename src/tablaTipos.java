@@ -3,18 +3,20 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class tablaTipos {
 
-    private File escritorio;                                                       // Objeto que contiene la ruta completa, con el nombre del archivo
+    private File archivo;                                                       // Objeto que contiene la ruta completa, con el nombre del archivo
+    private FileWriter escribir;
+    private PrintWriter imprimeLinea;
     private ArrayList<String> lectura, lexemas, tipos, valores;                    // Cadena que contendrá cada linea del archivo de texto
     private String lineaActual;                                                    // Es la cadena que almacenara cada linea del texto.txt
     private int contador;
 
     //Constructor no nulo
     private tablaTipos() {
-        String ARCHIVO = System.getProperty("user.home") + "\\Desktop\\";           // Constante que aloja la ruta del archivo a leer
-        escritorio = new File(ARCHIVO + "texto.txt");                     // Agrega el nombre del archivo
         lectura = new ArrayList<>();                                                // inicializacion
         lexemas = new ArrayList<>();
         tipos = new ArrayList<>();
@@ -22,11 +24,38 @@ public class tablaTipos {
         lineaActual = "";                                                           //
         contador = 0;
 
+        this.crearArchivo();
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
         this.imprimirTablaSimbolos();
     }
 
+    private void crearArchivo(){
+        try {
+            String rutaAbsoluta = System.getProperty("user.home") + "\\Desktop\\texto.txt";        // Constante que aloja la ruta del archivo a leer
+            archivo = new File(rutaAbsoluta);                     // Agrega el nombre del archivo
+            if(archivo.createNewFile()){
+                System.out.println("El archivo "+rutaAbsoluta+" fue creado satisfactoriamente");
+
+                try {
+                    escribir = new FileWriter(rutaAbsoluta, true);
+                    imprimeLinea = new PrintWriter(escribir);
+                    imprimeLinea.printf("%s" + "%n", "int x;");
+                    imprimeLinea.printf("%s" + "%n", "boolean y;");
+                    imprimeLinea.printf("%s" + "%n", "while ( x != y ){");
+                    imprimeLinea.printf("%s" + "%n", "x = x - y");
+                    imprimeLinea.printf("%s" + "%n", "}");
+                    imprimeLinea.close();
+                }catch(IOException e){
+                    System.out.println(e.getMessage());
+                }
+            }else{
+                System.out.println("El archivo "+rutaAbsoluta+" ya existe");
+            }
+        }catch(Exception e){
+            System.out.println("ERROR_CREACIÓN_ARCHIVO");
+        }
+    }
     //Lectura de datos de archivo de texto
     private void entrada() {
         BufferedReader br = null;
@@ -34,7 +63,7 @@ public class tablaTipos {
         String[] instrucciones;
 
         try {
-            fr = new FileReader(escritorio);                                        // Se especifica el archivo a leer
+            fr = new FileReader(archivo);                                        // Se especifica el archivo a leer
             br = new BufferedReader(fr);                                            // Se prepara el metodo de lectura de archivos
 
             while ((lineaActual = br.readLine()) != null)                           // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
