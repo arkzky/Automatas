@@ -27,9 +27,6 @@ public class tablaTipos {
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
         this.imprimirTablaSimbolos();
-        for (String l : lectura) {
-            System.out.println(l);
-        }
     }
 
     // Creacion de archivo a leer si no existe

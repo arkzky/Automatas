@@ -48,7 +48,7 @@
       <file leaf-file-name="tablaTipos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="2907">
               <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -201,7 +201,7 @@
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3292683" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46476966" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.46476966" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
       <window_info id="Designer" order="2" />
@@ -627,7 +627,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
+        <state relative-caret-position="2907">
           <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
