@@ -69,12 +69,12 @@ public class tablaTipos {
 
             while ((lineaActual = br.readLine()) != null)                           // Asigna la linea leida a lineaActual, mientras no devuelva nulo, sigue leyendo
             {
-                if(lineaActual.length()!=0){
+                //if(lineaActual.length()!=0){
                 	instrucciones = lineaActual.trim().split(";");            // Es el arreglo de String que almacena cada instruccion dentro de una linea del texto.txt. trim() elimina tabs y espacios de la linea
                     for (String ins : instrucciones) {                              // Cada elemento del arrayList es una linea completa del archivo de texto
                         lectura.add(ins.trim());                                    // Traslada las instrucciones alojadas en el vector "instrucciones" al ArrayList "lectura". trim() elimina tabs y espacios entre instrucciones
                     }
-            	}
+            	//}
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class tablaTipos {
         String[] linea;                                                            // Linea contiene strings de cada linea
         for (String l : lectura) {                                                 // Conversion de las lineas completas a elementos almacenados en un vector
             noLinea++;
-            if(l.equals("{") || l.equals("}"))
+            if(l.equals("{") || l.equals("}") || l.equals(""))
             {
                 continue;
             }
