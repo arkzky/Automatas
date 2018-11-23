@@ -27,6 +27,7 @@ public class tablaTipos {
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
         this.imprimirTablaSimbolos();
+        this.optimizacion();
     }
 
     // Creacion de archivo a leer si no existe
@@ -439,6 +440,60 @@ public class tablaTipos {
                 System.out.printf("%-20s%-20s%s%s",lexemas.get(i), tipos.get(i), valores.get(i),"\n");
             }
         }
+    }
+
+    public void optimizacion()
+    {
+        ArrayList<String> ceros = new ArrayList<>();
+        ArrayList<String> unos = new ArrayList<>();
+        String [] palabras;
+
+        for (int i = 0; i < lexemas.size(); i++)
+        {
+            if(valores.get(i).equals("0"))
+            {
+                ceros.add(lexemas.get(i));
+            }
+
+            if(valores.get(i).equals("1"))
+            {
+                unos.add(lexemas.get(i));
+            }
+
+            for(String l : lectura){
+                palabras = separador(l);
+                for(int j = 0; j < palabras.length; j++)
+                {
+                    if(ceros.contains(palabras[j]))
+                    {
+                        if(palabras[j-1].equals("-") || palabras[j-1].equals("+"))  // LADO IZQUIERDO
+                        {
+                            palabras[j] = "";
+                            palabras[j-1] = "";
+                        }
+
+                        if(j != 4)
+                        {
+                            if (palabras[j + 1].equals("-") || palabras[j + 1].equals("+"))  // LADO DERECHO
+                            {
+                                palabras[j] = "";
+                                palabras[j + 1] = "";
+                            }
+                        }
+                    }
+                }
+
+                for(String p : palabras)
+                {
+                    System.out.println(p);
+                }
+            }
+        }
+
+        /*String [] palabras;
+        for(String l : lectura){
+            palabras = separador(l);
+        }*/
     }
 
     public static void main(String z[])                                                                     // MAIN
