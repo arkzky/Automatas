@@ -446,6 +446,7 @@ public class tablaTipos {
     {
         ArrayList<String> ceros = new ArrayList<>();
         ArrayList<String> unos = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
         String [] palabras;
 
         for (int i = 0; i < lexemas.size(); i++)
@@ -462,7 +463,7 @@ public class tablaTipos {
 
             for(String l : lectura){
                 palabras = separador(l);
-                for(int j = 0; j < palabras.length; j++)
+                for(int j = 2; j < palabras.length; j++)
                 {
                     if(ceros.contains(palabras[j]))
                     {
@@ -470,6 +471,7 @@ public class tablaTipos {
                         {
                             palabras[j] = "";
                             palabras[j-1] = "";
+                            
                         }
 
                         if(j != 4)
@@ -481,11 +483,68 @@ public class tablaTipos {
                             }
                         }
                     }
+                    if(unos.contains(palabras[j]))
+                    {
+                        if(palabras[j-1].equals("*") || palabras[j-1].equals("/"))  // LADO IZQUIERDO
+                        {
+                            palabras[j] = "";
+                            palabras[j-1] = "";
+                        }
+
+                        if(j != 4)
+                        {
+                            if (palabras[j + 1].equals("*"))  // LADO DERECHO
+                            {
+                                palabras[j] = "";
+                                palabras[j + 1] = "";
+                            }
+                        }
+                    }
+                    if(palabras[j].equals("+") || palabras[j].equals("-"))
+                    {
+                        if(palabras[j-1].equals("0"))  // LADO IZQUIERDO
+                        {
+                            palabras[j] = "";
+                            palabras[j-1] = "";
+                        }
+
+                        if (palabras[j + 1].equals("0"))  // LADO DERECHO
+                        {
+                           palabras[j] = "";
+                           palabras[j + 1] = "";
+                        }
+                    }
+                    
+                    if(palabras[j].equals("*"))
+                    {
+                        if(palabras[j-1].equals("1"))  // LADO IZQUIERDO
+                        {
+                            palabras[j] = "";
+                            palabras[j-1] = "";
+                        }
+                    }
+					if(palabras[j].equals("*"))
+					{
+                        if (palabras[j + 1].equals("1"))  // LADO DERECHO
+                        {
+                           palabras[j] = "";
+                           palabras[j + 1] = "";
+                        }
+                    }
+                    
+                    if(palabras[j].equals("/"))
+                    {
+                    	if (palabras[j + 1].equals("1"))  // LADO DERECHO
+                        {
+                           palabras[j] = "";
+                           palabras[j + 1] = "";
+                        }
+                    }
                 }
 
-                for(String p : palabras)
+                for(int x = 0; x < palabras.length; x++)
                 {
-                    System.out.println(p);
+                    System.out.println(palabras[x]);
                 }
             }
         }
