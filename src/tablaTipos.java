@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class tablaTipos {
 
@@ -33,7 +34,7 @@ public class tablaTipos {
     // Creacion de archivo a leer si no existe
     private void crearArchivo(){
         try {
-            String rutaAbsoluta = System.getProperty("user.home") + "\\Desktop\\texto.txt";        // Constante que aloja la ruta del archivo a leer
+            String rutaAbsoluta = System.getProperty("user.home") + "\\Desktop\\entrada.txt";        // Constante que aloja la ruta del archivo a leer
             archivo = new File(rutaAbsoluta);                     // Agrega el nombre del archivo
             if(archivo.createNewFile()){
                 System.out.println("El archivo "+rutaAbsoluta+" fue creado satisfactoriamente");
@@ -46,12 +47,39 @@ public class tablaTipos {
                     imprimeLinea.printf("%s" + "%n", "while ( x != y ){");
                     imprimeLinea.printf("%s" + "%n", "x = x - y");
                     imprimeLinea.printf("%s" + "%n", "}");
+                    imprimeLinea.printf("%s" + "%n", "int c = 0;");
+                    imprimeLinea.printf("%s", "a =  0 + b;");
                     imprimeLinea.close();
                 }catch(IOException e){
                     System.out.println(e.getMessage());
                 }
             }else{
                 System.out.println("El archivo "+rutaAbsoluta+" ya existe");
+            }
+        }catch(Exception e){
+            System.out.println("ERROR_CREACIÓN_ARCHIVO");
+        }
+    }
+
+    private void crearArchivo(String [] instrucciones, String nombreArchivo)
+    {
+        try {
+            String rutaAbsoluta = System.getProperty("user.home") + "\\Desktop\\"+nombreArchivo+".txt";        // Constante que aloja la ruta del archivo a leer
+            archivo = new File(rutaAbsoluta);
+            if(archivo.createNewFile()) {
+                System.out.println("El archivo " + rutaAbsoluta + " fue creado satisfactoriamente");
+            }else{
+                System.out.println("El archivo " + rutaAbsoluta + " fue actualizado satisfactoriamente");
+            }
+            try {
+                FileWriter escribir = new FileWriter(rutaAbsoluta, false);
+                PrintWriter imprimeLinea = new PrintWriter(escribir);
+                for (String i : instrucciones){
+                    imprimeLinea.printf("%s%s" + "%n",i,";");
+                }
+                imprimeLinea.close();
+            }catch(IOException e){
+                System.out.println(e.getMessage());
             }
         }catch(Exception e){
             System.out.println("ERROR_CREACIÓN_ARCHIVO");
@@ -442,40 +470,36 @@ public class tablaTipos {
         }
     }
 
-    public void optimizacion()
+    private void optimizacion()
     {
         ArrayList<String> ceros = new ArrayList<>();
         ArrayList<String> unos = new ArrayList<>();
-        ArrayList<String> temp = new ArrayList<>();
-        String [] palabras;
+//        ArrayList<String> lectura_optimizado = new ArrayList<>();
+        String [] palabras, instrucciones;
+        StringBuilder instruccion = new StringBuilder();
 
-        for (int i = 0; i < lexemas.size(); i++)
-        {
-            if(valores.get(i).equals("0"))
-            {
+        for (int i = 0; i < lexemas.size(); i++) {
+            if (valores.get(i).equals("0")) {
                 ceros.add(lexemas.get(i));
             }
 
-            if(valores.get(i).equals("1"))
-            {
+            if (valores.get(i).equals("1")) {
                 unos.add(lexemas.get(i));
             }
+        }
 
-            for(String l : lectura){
-                palabras = separador(l);
-                for(int j = 2; j < palabras.length; j++)
-                {
-                    if(ceros.contains(palabras[j]))
-                    {
-                        if(palabras[j-1].equals("-") || palabras[j-1].equals("+"))  // LADO IZQUIERDO
+        for(String l : lectura) {
+            palabras = separador(l);
+                for (int j = 2; j < palabras.length; j++) {
+                    if (ceros.contains(palabras[j])) {
+                        if (palabras[j - 1].equals("-") || palabras[j - 1].equals("+"))  // LADO IZQUIERDO
                         {
                             palabras[j] = "";
-                            palabras[j-1] = "";
-                            
+                            palabras[j - 1] = "";
+
                         }
 
-                        if(j != 4)
-                        {
+                        if (j != 4) {
                             if (palabras[j + 1].equals("-") || palabras[j + 1].equals("+"))  // LADO DERECHO
                             {
                                 palabras[j] = "";
@@ -483,16 +507,14 @@ public class tablaTipos {
                             }
                         }
                     }
-                    if(unos.contains(palabras[j]))
-                    {
-                        if(palabras[j-1].equals("*") || palabras[j-1].equals("/"))  // LADO IZQUIERDO
+                    if (unos.contains(palabras[j])) {
+                        if (palabras[j - 1].equals("*") || palabras[j - 1].equals("/"))  // LADO IZQUIERDO
                         {
                             palabras[j] = "";
-                            palabras[j-1] = "";
+                            palabras[j - 1] = "";
                         }
 
-                        if(j != 4)
-                        {
+                        if (j != 4) {
                             if (palabras[j + 1].equals("*"))  // LADO DERECHO
                             {
                                 palabras[j] = "";
@@ -500,59 +522,67 @@ public class tablaTipos {
                             }
                         }
                     }
-                    if(palabras[j].equals("+") || palabras[j].equals("-"))
-                    {
-                        if(palabras[j-1].equals("0"))  // LADO IZQUIERDO
+                    if (palabras[j].equals("+") || palabras[j].equals("-")) {
+                        if (palabras[j - 1].equals("0"))  // LADO IZQUIERDO
                         {
                             palabras[j] = "";
-                            palabras[j-1] = "";
+                            palabras[j - 1] = "";
                         }
 
                         if (palabras[j + 1].equals("0"))  // LADO DERECHO
                         {
-                           palabras[j] = "";
-                           palabras[j + 1] = "";
+                            palabras[j] = "";
+                            palabras[j + 1] = "";
                         }
                     }
-                    
-                    if(palabras[j].equals("*"))
-                    {
-                        if(palabras[j-1].equals("1"))  // LADO IZQUIERDO
+
+                    if (palabras[j].equals("*")) {
+                        if (palabras[j - 1].equals("1"))  // LADO IZQUIERDO
                         {
                             palabras[j] = "";
-                            palabras[j-1] = "";
+                            palabras[j - 1] = "";
                         }
                     }
-					if(palabras[j].equals("*"))
-					{
+                    if (palabras[j].equals("*")) {
                         if (palabras[j + 1].equals("1"))  // LADO DERECHO
                         {
-                           palabras[j] = "";
-                           palabras[j + 1] = "";
+                            palabras[j] = "";
+                            palabras[j + 1] = "";
                         }
                     }
-                    
-                    if(palabras[j].equals("/"))
-                    {
-                    	if (palabras[j + 1].equals("1"))  // LADO DERECHO
+
+                    if (palabras[j].equals("/")) {
+                        if (palabras[j + 1].equals("1"))  // LADO DERECHO
                         {
-                           palabras[j] = "";
-                           palabras[j + 1] = "";
+                            palabras[j] = "";
+                            palabras[j + 1] = "";
                         }
                     }
                 }
+                // Aqui se debe guardar estas palabras como una linea de codigo en un String Builder
+                for (String p : palabras) {                             //Se juntan las palabras
+                    instruccion.append(p);
+                    if (instruccion.length() > 0) {
+                        instruccion.append(" ");
+                    }
+                }
+                palabras = instruccion.toString().split(" +");   // Se eliminan los espacios
+                instruccion.delete(0, instruccion.length());            // Se resetea el valor de instrucicones a vacio
 
-                for(int x = 0; x < palabras.length; x++)
-                {
-                    System.out.println(palabras[x]);
+                for (int p = 0; p < palabras.length; p++) {             // Se agregan espacios a la derecha y cuando este en la ultima palabra, agrega salto de linea
+                    if (instruccion.length() > 0) {
+                        instruccion.append(" ");
+                    }
+                    instruccion.append(palabras[p]);
+                    if(p == palabras.length-1){
+                        instruccion.append("\n");
+                    }
                 }
             }
-        }
-
-        /*String [] palabras;
-        for(String l : lectura){
-            palabras = separador(l);
-        }*/
+//        System.out.println(instruccion);
+        // Sigue guardar el String en un archivo
+        instrucciones = instruccion.toString().split("\n");
+        this.crearArchivo(instrucciones, "optimizacion");
     }
 
     public static void main(String z[])                                                                     // MAIN
