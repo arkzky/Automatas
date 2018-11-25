@@ -474,6 +474,7 @@ public class tablaTipos {
     {
         ArrayList<String> ceros = new ArrayList<>();
         ArrayList<String> unos = new ArrayList<>();
+        ArrayList<Boolean> flag = new ArrayList<>(); //arreglo para identificar que estas en un while 
 //        ArrayList<String> lectura_optimizado = new ArrayList<>();
         String [] palabras, instrucciones;
         StringBuilder instruccion = new StringBuilder();
@@ -491,6 +492,16 @@ public class tablaTipos {
         for(String l : lectura) {
             palabras = separador(l);
                 for (int j = 2; j < palabras.length; j++) {
+                	
+                	if(palabras[0].equals("while")){
+                		flag.add(true);
+                	}
+                	
+                	//reglas para saber si se afecto la una variable en un ciclo
+                	if(ceros.contains(palabras[0])){
+                		
+                	}
+                	
                     if (ceros.contains(palabras[j])) {
                         if (palabras[j - 1].equals("-") || palabras[j - 1].equals("+"))  // LADO IZQUIERDO
                         {
@@ -558,6 +569,8 @@ public class tablaTipos {
                             palabras[j + 1] = "";
                         }
                     }
+                    
+                    
                 }
                 // Aqui se debe guardar estas palabras como una linea de codigo en un String Builder
                 for (String p : palabras) {                             //Se juntan las palabras
