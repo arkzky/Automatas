@@ -48,8 +48,29 @@
       <file leaf-file-name="tablaTipos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="584" column="54" selection-start-line="584" selection-start-column="42" selection-end-line="584" selection-end-column="54" />
+            <state relative-caret-position="333">
+              <caret line="120" selection-start-line="120" selection-end-line="120" />
+              <folding>
+                <element signature="method#tablaTipos#0;class#tablaTipos#0" />
+                <element signature="method#crearArchivo#0;class#tablaTipos#0" />
+                <element signature="method#crearArchivo#1;class#tablaTipos#0" />
+                <element signature="method#entrada#0;class#tablaTipos#0" />
+                <element signature="method#separador#0;class#tablaTipos#0" />
+                <element signature="method#isNumeric#0;class#tablaTipos#0" />
+                <element signature="method#isInt#0;class#tablaTipos#0" />
+                <element signature="method#verificador#0;class#tablaTipos#0" />
+                <element signature="method#sintactico#0;class#tablaTipos#0" />
+                <element signature="e#11362#11375#0" />
+                <element signature="e#13662#13676#0" />
+                <element signature="e#20919#20932#0" />
+                <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
+                <element signature="method#detectarError#0;class#tablaTipos#0" />
+                <element signature="method#detectarError#1;class#tablaTipos#0" />
+                <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
+                <element signature="method#optimizacion#0;class#tablaTipos#0" />
+                <element signature="e#34267#34309#0" />
+                <element signature="method#main#0;class#tablaTipos#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -179,7 +200,7 @@
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.46341464" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.68157184" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.25266525" />
@@ -188,14 +209,28 @@
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25266525" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3292683" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.46341464" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" x="0" y="0" width="354" height="676" id="Documentation" order="5" side_tool="true" weight="0.32969153" />
+      <window_info id="Learn" order="4" weight="0.32889733" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
+      <window_info id="Favorites" order="5" side_tool="true" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -460,8 +495,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="584" column="54" selection-start-line="584" selection-start-column="42" selection-end-line="584" selection-end-column="54" />
+        <state relative-caret-position="333">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="method#tablaTipos#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#1;class#tablaTipos#0" />
+            <element signature="method#entrada#0;class#tablaTipos#0" />
+            <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#isNumeric#0;class#tablaTipos#0" />
+            <element signature="method#isInt#0;class#tablaTipos#0" />
+            <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#sintactico#0;class#tablaTipos#0" />
+            <element signature="e#11362#11375#0" />
+            <element signature="e#13662#13676#0" />
+            <element signature="e#20919#20932#0" />
+            <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#1;class#tablaTipos#0" />
+            <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#optimizacion#0;class#tablaTipos#0" />
+            <element signature="e#34267#34309#0" />
+            <element signature="method#main#0;class#tablaTipos#0" />
+          </folding>
         </state>
       </provider>
     </entry>

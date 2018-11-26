@@ -474,10 +474,10 @@ public class tablaTipos {
     {
         ArrayList<String> ceros = new ArrayList<>();
         ArrayList<String> unos = new ArrayList<>();
-        ArrayList<Boolean> flag = new ArrayList<>(); //arreglo para identificar que estas en un while 
-//        ArrayList<String> lectura_optimizado = new ArrayList<>();
+        ArrayList<String> noBorrar = new ArrayList<>();
         String [] palabras, instrucciones;
         StringBuilder instruccion = new StringBuilder();
+        int contCiclos = 0;
 
         for (int i = 0; i < lexemas.size(); i++) {
             if (valores.get(i).equals("0")) {
@@ -489,87 +489,113 @@ public class tablaTipos {
             }
         }
 
-        for(String l : lectura) {
-            palabras = separador(l);
-                for (int j = 2; j < palabras.length; j++) {
-                	
-                	if(palabras[0].equals("while")){
-                		flag.add(true);
-                	}
-                	
-                	//reglas para saber si se afecto la una variable en un ciclo
-                	if(ceros.contains(palabras[0])){
-                		
-                	}
-                	
-                    if (ceros.contains(palabras[j])) {
-                        if (palabras[j - 1].equals("-") || palabras[j - 1].equals("+"))  // LADO IZQUIERDO
-                        {
-                            palabras[j] = "";
-                            palabras[j - 1] = "";
+        for (int k = 0; k < lectura.size(); k++) {
+            palabras = separador(lectura.get(k));
 
+            if(palabras[0].equals("while"))
+            {
+                contCiclos++;
+            }
+
+            if(palabras[0].equals("}"))
+            {
+                contCiclos--;
+            }
+
+           if(ceros.contains(palabras[0]) && contCiclos > 0)
+           {
+               if(palabras[3].equals("+") || palabras[3].equals("-"))
+               {
+                   noBorrar.add(palabras[0]);
+               }
+           }
+        }
+
+        for(int i = 0; i < lectura.size(); i++) {
+            palabras = separador(lectura.get(i));
+
+                for (int j = 0; j < palabras.length; j++) {
+
+                    if(palabras[0].equals("while"))
+                    {
+                        contCiclos++;
+                    }
+
+                    if(palabras[0].equals("}"))
+                    {
+                        contCiclos--;
+                    }
+                	
+                	if( j >= 2 )                                        // Solo evalua cuando llega al indice 2
+                	{
+                        if (ceros.contains(palabras[j]) && noBorrar.contains(palabras[j]) && contCiclos == 0) {
+                            if (palabras[j - 1].equals("-") || palabras[j - 1].equals("+"))  // LADO IZQUIERDO
+                            {
+                                palabras[j] = "";
+                                palabras[j - 1] = "";
+
+                            }
+
+                            if (j != 4) {
+                                if (palabras[j + 1].equals("-") || palabras[j + 1].equals("+"))  // LADO DERECHO
+                                {
+                                    palabras[j] = "";
+                                    palabras[j + 1] = "";
+                                }
+                            }
+                        }
+                        if (unos.contains(palabras[j])) {
+                            if (palabras[j - 1].equals("*") || palabras[j - 1].equals("/"))  // LADO IZQUIERDO
+                            {
+                                palabras[j] = "";
+                                palabras[j - 1] = "";
+                            }
+
+                            if (j != 4) {
+                                if (palabras[j + 1].equals("*"))  // LADO DERECHO
+                                {
+                                    palabras[j] = "";
+                                    palabras[j + 1] = "";
+                                }
+                            }
+                        }
+                        if (palabras[j].equals("+") || palabras[j].equals("-")) {
+                            if (palabras[j - 1].equals("0"))  // LADO IZQUIERDO
+                            {
+                                palabras[j] = "";
+                                palabras[j - 1] = "";
+                            }
+
+                            if (palabras[j + 1].equals("0"))  // LADO DERECHO
+                            {
+                                palabras[j] = "";
+                                palabras[j + 1] = "";
+                            }
                         }
 
-                        if (j != 4) {
-                            if (palabras[j + 1].equals("-") || palabras[j + 1].equals("+"))  // LADO DERECHO
+                        if (palabras[j].equals("*")) {
+                            if (palabras[j - 1].equals("1"))  // LADO IZQUIERDO
+                            {
+                                palabras[j] = "";
+                                palabras[j - 1] = "";
+                            }
+                        }
+                        if (palabras[j].equals("*")) {
+                            if (palabras[j + 1].equals("1"))  // LADO DERECHO
+                            {
+                                palabras[j] = "";
+                                palabras[j + 1] = "";
+                            }
+                        }
+
+                        if (palabras[j].equals("/")) {
+                            if (palabras[j + 1].equals("1"))  // LADO DERECHO
                             {
                                 palabras[j] = "";
                                 palabras[j + 1] = "";
                             }
                         }
                     }
-                    if (unos.contains(palabras[j])) {
-                        if (palabras[j - 1].equals("*") || palabras[j - 1].equals("/"))  // LADO IZQUIERDO
-                        {
-                            palabras[j] = "";
-                            palabras[j - 1] = "";
-                        }
-
-                        if (j != 4) {
-                            if (palabras[j + 1].equals("*"))  // LADO DERECHO
-                            {
-                                palabras[j] = "";
-                                palabras[j + 1] = "";
-                            }
-                        }
-                    }
-                    if (palabras[j].equals("+") || palabras[j].equals("-")) {
-                        if (palabras[j - 1].equals("0"))  // LADO IZQUIERDO
-                        {
-                            palabras[j] = "";
-                            palabras[j - 1] = "";
-                        }
-
-                        if (palabras[j + 1].equals("0"))  // LADO DERECHO
-                        {
-                            palabras[j] = "";
-                            palabras[j + 1] = "";
-                        }
-                    }
-
-                    if (palabras[j].equals("*")) {
-                        if (palabras[j - 1].equals("1"))  // LADO IZQUIERDO
-                        {
-                            palabras[j] = "";
-                            palabras[j - 1] = "";
-                        }
-                    }
-                    if (palabras[j].equals("*")) {
-                        if (palabras[j + 1].equals("1"))  // LADO DERECHO
-                        {
-                            palabras[j] = "";
-                            palabras[j + 1] = "";
-                        }
-                    }
-
-                    if (palabras[j].equals("/")) {
-                        if (palabras[j + 1].equals("1"))  // LADO DERECHO
-                        {
-                            palabras[j] = "";
-                            palabras[j + 1] = "";
-                        }
-                    }
-                    
                     
                 }
                 // Aqui se debe guardar estas palabras como una linea de codigo en un String Builder
