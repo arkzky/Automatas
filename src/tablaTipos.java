@@ -56,6 +56,7 @@ public class tablaTipos {
             }else{
                 System.out.println("El archivo "+rutaAbsoluta+" ya existe");
             }
+            this.abrirArchivo(rutaAbsoluta);
         }catch(Exception e){
             System.out.println("ERROR_CREACIÓN_ARCHIVO");
         }
@@ -81,9 +82,15 @@ public class tablaTipos {
             }catch(IOException e){
                 System.out.println(e.getMessage());
             }
+            this.abrirArchivo(rutaAbsoluta);
         }catch(Exception e){
             System.out.println("ERROR_CREACIÓN_ARCHIVO");
         }
+    }
+
+    private void abrirArchivo(String ruta) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        Process p = rt.exec("notepad "+ruta);
     }
 
     //Lectura de datos de archivo de texto
