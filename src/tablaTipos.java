@@ -45,7 +45,7 @@ public class tablaTipos {
                     imprimeLinea.printf("%s" + "%n", "int x;");
                     imprimeLinea.printf("%s" + "%n", "boolean y;");
                     imprimeLinea.printf("%s" + "%n", "while ( x != y ){");
-                    imprimeLinea.printf("%s" + "%n", "x = x - y");
+                    imprimeLinea.printf("%s" + "%n", "x = x - y;");
                     imprimeLinea.printf("%s" + "%n", "}");
                     imprimeLinea.printf("%s" + "%n", "int c = 0;");
                     imprimeLinea.printf("%s", "a =  0 + b;");
