@@ -535,7 +535,7 @@ public class tablaTipos {
                 	
                 	if( j >= 2 )                                        // Solo evalua cuando llega al indice 2
                 	{
-                        if (ceros.contains(palabras[j]) && noBorrar.contains(palabras[j]) && contCiclos == 0) {
+                        if (ceros.contains(palabras[j]) && !(noBorrar.contains(palabras[j]))) {
                             if (palabras[j - 1].equals("-") || palabras[j - 1].equals("+"))  // LADO IZQUIERDO
                             {
                                 palabras[j] = "";
