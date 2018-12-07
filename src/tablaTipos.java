@@ -637,25 +637,47 @@ public class tablaTipos {
 
     private void triplo()
     {
-        ArrayList<String> datoObjeto = new ArrayList<>();
-        ArrayList<String> datoFuente = new ArrayList<>();
-        ArrayList<String> operador   = new ArrayList<>();
+        ArrayList<String> filasTriplo = new ArrayList<>();
+        int temporal = 1;
+
 
 //      Limpieza de variables, Lectura de nuevo ahora con optimizacion
         lectura.clear();
         this.entrada();
 
 //      Remover declaraciones
-        for (int i = 0; i < lectura.size(); i++) {
+        for (int i = 0; i < lectura.size(); i++)
+        {
             if(lectura.get(i).contains("int") || lectura.get(i).contains("float") || lectura.get(i).contains("boolean") || lectura.get(i).contains("char") || lectura.get(i).contains("String")) {
-                    lectura.remove(i);
-                    i--;
+                lectura.remove(i);
+                i--;
             }
         }
-//      Impresion temporal
-        for (String l : lectura) {
-            System.out.println(l);
+
+        // Conversion a Triplo
+        String [] palabras;
+        for (int j = 0; j < lectura.size(); j++) {
+            palabras = separador(lectura.get(j));
+
+            for (int i = 0; i < palabras.length; i++) {
+                if (palabras[i].equals("}")) {
+                    continue;
+                }
+                if (palabras[i].equals("+") || palabras[i].equals("-") || palabras[i].equals("/") || palabras[i].equals("*"))
+                {
+                    filasTriplo.add("T"+temporal+" "+palabras[i-1]+" =");
+                    filasTriplo.add("T"+temporal+" "+palabras[i+1]+" "+palabras[i]);
+                    filasTriplo.add(palabras[0]+" T"+temporal+" =");
+                    temporal++;
+                }
+            }
         }
+
+        // Impresion temporal
+        for (String f : filasTriplo) {
+            System.out.println(f);
+        }
+
     }
 
     public static void main(String z[])                                                                     // MAIN
