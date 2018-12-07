@@ -29,6 +29,7 @@ public class tablaTipos {
         this.sintactico();
         this.imprimirTablaSimbolos();
         this.optimizacion();
+        this.triplo();
     }
 
     // Creacion de archivo a leer si no existe
@@ -76,7 +77,10 @@ public class tablaTipos {
                 FileWriter escribir = new FileWriter(rutaAbsoluta, false);
                 PrintWriter imprimeLinea = new PrintWriter(escribir);
                 for (String i : instrucciones){
-                    imprimeLinea.printf("%s%s" + "%n",i,";");
+                    if(i.contains("while") || i.contains("}"))
+                        imprimeLinea.printf("%s" + "%n",i);
+                    else
+                        imprimeLinea.printf("%s%s" + "%n",i,";");
                 }
                 imprimeLinea.close();
             }catch(IOException e){
@@ -629,6 +633,29 @@ public class tablaTipos {
         // Sigue guardar el String en un archivo
         instrucciones = instruccion.toString().split("\n");
         this.crearArchivo(instrucciones, "optimizacion");
+    }
+
+    private void triplo()
+    {
+        ArrayList<String> datoObjeto = new ArrayList<>();
+        ArrayList<String> datoFuente = new ArrayList<>();
+        ArrayList<String> operador   = new ArrayList<>();
+
+//      Limpieza de variables, Lectura de nuevo ahora con optimizacion
+        lectura.clear();
+        this.entrada();
+
+//      Remover declaraciones
+        for (int i = 0; i < lectura.size(); i++) {
+            if(lectura.get(i).contains("int") || lectura.get(i).contains("float") || lectura.get(i).contains("boolean") || lectura.get(i).contains("char") || lectura.get(i).contains("String")) {
+                if(!lectura.get(i).contains("="))
+                    lectura.remove(i);
+            }
+        }
+//      Impresion temporal
+        for (String l : lectura) {
+            System.out.println(l);
+        }
     }
 
     public static void main(String z[])                                                                     // MAIN
