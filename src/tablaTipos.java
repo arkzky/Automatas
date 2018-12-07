@@ -59,7 +59,7 @@ public class tablaTipos {
             }
             this.abrirArchivo(rutaAbsoluta);
         }catch(Exception e){
-            System.out.println("ERROR_CREACIÓN_ARCHIVO");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -88,13 +88,13 @@ public class tablaTipos {
             }
             this.abrirArchivo(rutaAbsoluta);
         }catch(Exception e){
-            System.out.println("ERROR_CREACIÓN_ARCHIVO");
+            System.out.println(e.getMessage());
         }
     }
 
     private void abrirArchivo(String ruta) throws IOException {
         Runtime rt = Runtime.getRuntime();
-        Process p = rt.exec("notepad "+ruta);
+        rt.exec("notepad "+ruta);
     }
 
     //Lectura de datos de archivo de texto
@@ -648,8 +648,8 @@ public class tablaTipos {
 //      Remover declaraciones
         for (int i = 0; i < lectura.size(); i++) {
             if(lectura.get(i).contains("int") || lectura.get(i).contains("float") || lectura.get(i).contains("boolean") || lectura.get(i).contains("char") || lectura.get(i).contains("String")) {
-                if(!lectura.get(i).contains("="))
                     lectura.remove(i);
+                    i--;
             }
         }
 //      Impresion temporal
