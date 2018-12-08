@@ -26,9 +26,9 @@ public class tablaTipos {
         this.crearArchivo();
         this.entrada();                                                             // llamada al metodo entrada()
         this.sintactico();
-        this.imprimirTablaSimbolos();
         this.optimizacion();
         this.triplo();
+        this.imprimirTablaSimbolos();
     }
 
     // Creacion de archivo a leer si no existe
@@ -75,11 +75,18 @@ public class tablaTipos {
             try {
                 FileWriter escribir = new FileWriter(rutaAbsoluta, false);
                 PrintWriter imprimeLinea = new PrintWriter(escribir);
-                for (String i : instrucciones){
-                    if(i.contains("while") || i.contains("}"))
-                        imprimeLinea.printf("%s" + "%n",i);
-                    else
-                        imprimeLinea.printf("%s%s" + "%n",i,";");
+
+                for (int i = 0; i < instrucciones.length; i++){
+                    if(nombreArchivo.equals("triplo"))
+                    {
+                        imprimeLinea.printf("%-3d%s" + "%n",(i+1) , instrucciones[i]);
+                    }else if(instrucciones[i].contains("while") || instrucciones[i].contains("}"))
+                            {
+                                imprimeLinea.printf("%s" + "%n", instrucciones[i]);
+                            }else
+                            {
+                                imprimeLinea.printf("%s%s" + "%n", instrucciones[i], ";");
+                            }
                 }
                 imprimeLinea.close();
             }catch(IOException e){
@@ -633,12 +640,12 @@ public class tablaTipos {
     private void triplo()
     {
         ArrayList<String> filasTriplo = new ArrayList<>();
-        int temporal = 1;
-
+        String [] arregloFilasTriplo;
+        int contadorTemporal = 1;
 
 //      Limpieza de variables, Lectura de nuevo ahora con optimizacion
-        lectura.clear();
-        this.entrada();
+        lectura.clear();                                                    // Se borra su contenido
+        this.entrada();                                                     // Se vuelve a hacer la lectura del ultimo archivo creado, es decir "Optimizacion.txt"
 
 //      Remover declaraciones
         for (int i = 0; i < lectura.size(); i++)
@@ -660,18 +667,16 @@ public class tablaTipos {
                     continue;
                 }
 
-                // Caso de operacion aritmetica
+                // Caso de operacion aritmetica: y = a + b
                 if (palabras[i].equals("+") || palabras[i].equals("-") || palabras[i].equals("/") || palabras[i].equals("*")) {
-                    filasTriplo.add("T" + temporal + " " + palabras[i - 1] + " =");
-                    filasTriplo.add("T" + temporal + " " + palabras[i + 1] + " " + palabras[i]);
-                    filasTriplo.add(palabras[0] + " T" + temporal + " =");
-                    temporal++;
+                    filasTriplo.add("T" + contadorTemporal + " " + palabras[i - 1] + " =");
+                    filasTriplo.add("T" + contadorTemporal + " " + palabras[i + 1] + " " + palabras[i]);
+                    filasTriplo.add(palabras[0] + " T" + contadorTemporal + " =");
+                    contadorTemporal++;
                 }
 
-                // Caso asignaciones  y = 0;
+                // Caso asignaciones:  y = 0;
                 if (palabras.length <= 3 && palabras[i].equals("=")) {
-                    //Opcion 1
-                    //y 0 =
                     filasTriplo.add(palabras[i - 1] + " " + palabras[i + 1] + " " + palabras[i]);
                 }
 
@@ -737,12 +742,10 @@ public class tablaTipos {
 //                }
             }
         }
-
-        // Impresion temporal
-        for (String f : filasTriplo)
-        {
-            System.out.println(f);
-        }
+        // Impresion en archivo de texto
+        arregloFilasTriplo = new String[filasTriplo.size()];
+        arregloFilasTriplo = filasTriplo.toArray(arregloFilasTriplo);
+        this.crearArchivo(arregloFilasTriplo,"triplo");
 
     }
 
