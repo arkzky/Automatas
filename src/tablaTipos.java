@@ -660,9 +660,12 @@ public class tablaTipos {
             palabras = separador(lectura.get(j));
 
             for (int i = 0; i < palabras.length; i++) {
+                // Omitir corchetes
                 if (palabras[i].equals("}")) {
                     continue;
                 }
+
+                // Caso de operacion aritmetica
                 if (palabras[i].equals("+") || palabras[i].equals("-") || palabras[i].equals("/") || palabras[i].equals("*"))
                 {
                     filasTriplo.add("T"+temporal+" "+palabras[i-1]+" =");
@@ -670,11 +673,87 @@ public class tablaTipos {
                     filasTriplo.add(palabras[0]+" T"+temporal+" =");
                     temporal++;
                 }
+
+                // Caso asignaciones  y = 0;
+                if(palabras.length <= 3 && palabras[i].equals("="))
+                {
+                    //Opcion 1
+                        //y 0 =
+                    filasTriplo.add( palabras[i-1]+" "+palabras[i+1]+" "+palabras[i]);
+                }
+
+                // Caso while
+                if(palabras[0].toLowerCase().equals("while"))
+                {
+                    if(!palabras[2].equals("("))
+                    {
+
+                    }else{ //no tiene parentesis
+
+                    }
+                }
+
+
+
+                if(palabras[i].equals("&&"))
+                {
+                    // while  ( a && b )
+                    if(palabras[i-1].equals(")"))
+                    {
+
+                    }
+                    // while( ( x < 7 ) && x )
+                    // while( ( x < 7 ) && ( y < 4 ) )
+                }
+
+                if(palabras[i].equals("||"))
+                {
+
+                }
+
+                /* ORDEN:   0 -> while
+                                1-> (
+                                    2-> X o 1 o True
+                                        3 -> logico ("&&")
+                                                4 -> X o 1 | True | False
+                                                        5 -> )
+                                                4 -> (
+                                                    5 -> X o 1
+                                                        6 -> relacional (==, >, <, <=, >=)
+                                                            7 -> X o 1
+                                                                8 -> )
+                                                                    9 -> )
+                                        3 -> logico ("||")
+
+                                        3 -> relacional (==, >, <, <=, >=)
+                                                4 -> X o 1 o True o False
+                                                    5 -> )
+
+                                    2 -> (
+                                        3 ->  X o 1 ->
+                                                4 -> relacional (==, >, <, <=, >=)
+                                                    5 -> X | 1
+                                                        6 -> )
+                                                            7 -> logico("&&" o "||")
+                                                                8 -> X
+                                                                    9 -> )
+                                                                8 -> (
+                                                                    9 -> X o 1
+                                                                        10 -> relacional (==, >, <, <=, >=)
+                                                                            11 -> X o 1
+                                                                                12 -> )
+                                                                                    13 -> ) */
+
+//                if(palabras[i].equals("==") || palabras[i].equals(">=") || palabras[i].equals("<=") || palabras[i].equals(">") || palabras[i].equals("<") || palabras[i].equals("!="))
+//                {
+//
+//                }
             }
         }
 
         // Impresion temporal
-        for (String f : filasTriplo) {
+        for (String f : filasTriplo)
+        {
             System.out.println(f);
         }
 
