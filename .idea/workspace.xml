@@ -49,8 +49,8 @@
       <file leaf-file-name="tablaTipos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="692" column="21" selection-start-line="692" selection-start-column="21" selection-end-line="692" selection-end-column="21" />
+            <state relative-caret-position="935">
+              <caret line="506" column="4" selection-start-line="506" selection-start-column="4" selection-end-line="506" selection-end-column="4" />
               <folding>
                 <element signature="method#tablaTipos#0;class#tablaTipos#0" />
                 <element signature="method#crearArchivo#0;class#tablaTipos#0" />
@@ -58,9 +58,11 @@
                 <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
                 <element signature="method#entrada#0;class#tablaTipos#0" />
                 <element signature="method#separador#0;class#tablaTipos#0" />
+                <element signature="method#palabrasALinea#0;class#tablaTipos#0" />
                 <element signature="method#isNumeric#0;class#tablaTipos#0" />
                 <element signature="method#isInt#0;class#tablaTipos#0" />
                 <element signature="method#verificador#0;class#tablaTipos#0" />
+                <element signature="method#sintactico#0;class#tablaTipos#0" />
                 <element signature="e#11756#11769#0" />
                 <element signature="e#14056#14070#0" />
                 <element signature="e#21313#21326#0" />
@@ -69,7 +71,10 @@
                 <element signature="method#detectarError#1;class#tablaTipos#0" />
                 <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
                 <element signature="method#optimizacion#0;class#tablaTipos#0" />
-                <element signature="e#35995#36037#0" />
+                <element signature="method#triplo#0;class#tablaTipos#0" />
+                <element signature="e#37788#37798#0" />
+                <element signature="e#38431#38457#0" />
+                <element signature="e#40704#40888#0" />
                 <element signature="method#main#0;class#tablaTipos#0" />
               </folding>
             </state>
@@ -112,7 +117,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="856" />
     <option name="height" value="867" />
@@ -193,15 +198,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3292683" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.3292683" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.14677641" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.68834686" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.25266525" />
@@ -218,13 +224,45 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3292683" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11764">
+          <caret line="692" column="21" selection-start-line="692" selection-start-column="21" selection-end-line="692" selection-end-column="21" />
+          <folding>
+            <element signature="method#tablaTipos#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#1;class#tablaTipos#0" />
+            <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
+            <element signature="method#entrada#0;class#tablaTipos#0" />
+            <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#palabrasALinea#0;class#tablaTipos#0" />
+            <element signature="method#isNumeric#0;class#tablaTipos#0" />
+            <element signature="method#isInt#0;class#tablaTipos#0" />
+            <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#sintactico#0;class#tablaTipos#0" />
+            <element signature="e#11756#11769#0" />
+            <element signature="e#14056#14070#0" />
+            <element signature="e#21313#21326#0" />
+            <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#1;class#tablaTipos#0" />
+            <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#optimizacion#0;class#tablaTipos#0" />
+            <element signature="method#triplo#0;class#tablaTipos#0" />
+            <element signature="e#37788#37798#0" />
+            <element signature="e#38431#38457#0" />
+            <element signature="e#40704#40888#0" />
+            <element signature="method#main#0;class#tablaTipos#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11764">
@@ -236,9 +274,11 @@
             <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
             <element signature="method#entrada#0;class#tablaTipos#0" />
             <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#palabrasALinea#0;class#tablaTipos#0" />
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#sintactico#0;class#tablaTipos#0" />
             <element signature="e#11756#11769#0" />
             <element signature="e#14056#14070#0" />
             <element signature="e#21313#21326#0" />
@@ -247,7 +287,10 @@
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="e#35995#36037#0" />
+            <element signature="method#triplo#0;class#tablaTipos#0" />
+            <element signature="e#37788#37798#0" />
+            <element signature="e#38431#38457#0" />
+            <element signature="e#40704#40888#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -264,9 +307,11 @@
             <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
             <element signature="method#entrada#0;class#tablaTipos#0" />
             <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#palabrasALinea#0;class#tablaTipos#0" />
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#sintactico#0;class#tablaTipos#0" />
             <element signature="e#11756#11769#0" />
             <element signature="e#14056#14070#0" />
             <element signature="e#21313#21326#0" />
@@ -275,7 +320,10 @@
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="e#35995#36037#0" />
+            <element signature="method#triplo#0;class#tablaTipos#0" />
+            <element signature="e#37788#37798#0" />
+            <element signature="e#38431#38457#0" />
+            <element signature="e#40704#40888#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -295,8 +343,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="692" column="21" selection-start-line="692" selection-start-column="21" selection-end-line="692" selection-end-column="21" />
+        <state relative-caret-position="935">
+          <caret line="506" column="4" selection-start-line="506" selection-start-column="4" selection-end-line="506" selection-end-column="4" />
           <folding>
             <element signature="method#tablaTipos#0;class#tablaTipos#0" />
             <element signature="method#crearArchivo#0;class#tablaTipos#0" />
@@ -304,9 +352,11 @@
             <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
             <element signature="method#entrada#0;class#tablaTipos#0" />
             <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#palabrasALinea#0;class#tablaTipos#0" />
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#sintactico#0;class#tablaTipos#0" />
             <element signature="e#11756#11769#0" />
             <element signature="e#14056#14070#0" />
             <element signature="e#21313#21326#0" />
@@ -315,7 +365,10 @@
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="e#35995#36037#0" />
+            <element signature="method#triplo#0;class#tablaTipos#0" />
+            <element signature="e#37788#37798#0" />
+            <element signature="e#38431#38457#0" />
+            <element signature="e#40704#40888#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
