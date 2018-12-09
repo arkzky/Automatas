@@ -664,7 +664,8 @@ public class tablaTipos {
             for (int i = 0; i < palabras.length; i++) {
                 // Omitir corchetes
                 if (palabras[i].equals("}")) {
-                    continue;
+                    //continue;
+                    filasTriplo.add("JMP   LINEACICLO");
                 }
 
                 // Caso de operacion aritmetica: y = a + b
@@ -682,12 +683,80 @@ public class tablaTipos {
 
                 // Caso while
                 if (palabras[0].toLowerCase().equals("while")) {
-                    if (!palabras[2].equals("(")) {
+                    if(palabras[i].equals("||")){  //AQUI SE EVALUA ENCONTRAR UN OR
+                        if(palabras[i-1].equals(")")){ //EN ESTE CASO SE ENCUENTRA UNA OPERACION RELACIONAL
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-4]+" =");
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-2]+" "+palabras[i-3]);
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP + 1");
+                            contadorTemporal++;
 
-                    } else { //no tiene parentesis
+                        }
+                        else{ //AQUI NEL, SOLO UN BOOLEAN
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-1]+" =");
+                            filasTriplo.add("T"+contadorTemporal+"   ==");
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                        if(palabras[i+1].equals("(")){ //SI ES UN RELACION A LA DERECHA
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+2]+" =");
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+4]+" "+palabras[i+3]);
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                        else{//ESTO ES SI ENCUENTRAS UN BOOLEAN A LA DERECHA
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+1]+" =");
+                            filasTriplo.add("T"+contadorTemporal+"   ==");
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                    }
+                    if(palabras[i].equals("&&")){  //AQUI SE EVALUA ENCONTRAR UN AND
+                        if(palabras[i-1].equals(")")){ //EN ESTE CASO SE ENCUENTRA UNA OPERACION RELACIONAL
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-4]+" =");
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-2]+" "+palabras[i-3]);
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP + 1");
+                            contadorTemporal++;
+
+                        }
+                        else{ //AQUI NEL, SOLO UN BOOLEAN
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-1]+" =");
+                            filasTriplo.add("T"+contadorTemporal+"   ==");
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                        if(palabras[i+1].equals("(")){ //SI ES UN RELACION A LA DERECHA
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+2]+" =");
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+4]+" "+palabras[i+3]);
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                        else{//ESTO ES SI ENCUENTRAS UN BOOLEAN A LA DERECHA
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+1]+" =");
+                            filasTriplo.add("T"+contadorTemporal+"   ==");
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
+                            contadorTemporal++;
+                        }
+                    }
+                    if((palabras[i].equals("<")||palabras[i].equals(">")||palabras[i].equals("==")||palabras[i].equals("<=")||palabras[i].equals(">=")||palabras[i].equals("!="))&&palabras[i+2].equals("){")){
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i-1]+" =");
+                            filasTriplo.add("T"+contadorTemporal+" "+palabras[i+1]+" "+palabras[i]);
+                            filasTriplo.add("TR TRUE JUMP");
+                            filasTriplo.add("TR FALSE JUMP");
 
                     }
                 }
+
+
+                //CASO WHILE TEMPORAL
+
 
 
                 if (palabras[i].equals("&&")) {
@@ -748,7 +817,6 @@ public class tablaTipos {
         this.crearArchivo(arregloFilasTriplo,"triplo");
 
     }
-
     public static void main(String z[])                                                                     // MAIN
     {
         new tablaTipos();
