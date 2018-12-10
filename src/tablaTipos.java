@@ -80,6 +80,10 @@ public class tablaTipos {
                     if(nombreArchivo.equals("triplo"))
                     {
                         imprimeLinea.printf("%-3d%s" + "%n",(i+1) , instrucciones[i]);
+                        if(i == instrucciones.length-1)
+                        {
+                            imprimeLinea.printf("%-3d",(i+2));
+                        }
                     }else if(instrucciones[i].contains("while") || instrucciones[i].contains("}"))
                             {
                                 imprimeLinea.printf("%s" + "%n", instrucciones[i]);
@@ -639,12 +643,13 @@ public class tablaTipos {
 
     private void triplo()
     {
-        ArrayList<String> filasTriplo = new ArrayList<>();
-        ArrayList<String> lineasWhile = new ArrayList<>();
-        ArrayList<String> salidaSaltos = new ArrayList<>();
-        ArrayList<Integer> posicionSalida = new ArrayList<>();
-        String [] arregloFilasTriplo;
-        String aux;
+        ArrayList <String>  filasTriplo    = new ArrayList<>();
+        ArrayList <String>  lineasWhile    = new ArrayList<>();
+        ArrayList <String>  salidaSaltos   = new ArrayList<>();
+        ArrayList <Integer> posicionSalida = new ArrayList<>();
+        String [] palabras, arregloFilasTriplo;
+        String JMPFalso, lineaASaltar;
+        int posJMPFalso;
         int contadorTemporal = 1;
 
 //      Limpieza de variables, Lectura de nuevo ahora con optimizacion
@@ -661,31 +666,27 @@ public class tablaTipos {
         }
 
         // Conversion a Triplo
-        String [] palabras;
         for (String l : lectura) {
             palabras = separador(l);
 
             for (int i = 0; i < palabras.length; i++) {
                 // Omitir corchetes
                 if (palabras[i].equals("}")) {
-                    //continue;
-                    filasTriplo.add("JMP   "+lineasWhile.get(lineasWhile.size()-1));
-                    //filasTriplo.add("JMP   "+lineasWhile.get(0));
-                    lineasWhile.remove(lineasWhile.size()-1);
-                    salidaSaltos.add(""+(filasTriplo.size()+2));
-                    aux=filasTriplo.get((posicionSalida.get((posicionSalida.size()-1)))-1);
-                    
-                    //System.out.println("hola "+aux);
-                    
-                    //filasTriplo.remove(posicionSalida.get((posicionSalida.size()-1)));
-                    filasTriplo.add((posicionSalida.get((posicionSalida.size()-1))),aux+salidaSaltos.get((salidaSaltos.size()-1)));
-                    int indice=(posicionSalida.get((posicionSalida.size()-1)));
-                    //System.out.println("aux2 "+aux2);
-                    filasTriplo.remove(indice-1);
-                    System.out.println("num "+posicionSalida.size());
-                    posicionSalida.remove((posicionSalida.size()-1));
-                    //System.out.println(salidaSaltos.get(0));
-                    
+                    // Agregar JMP que devuelva a la fila donde se evalua el while
+                    filasTriplo.add( "JMP   " + lineasWhile.get( lineasWhile.size() - 1 ));
+                    lineasWhile.remove(lineasWhile.size() - 1);
+                    salidaSaltos.add( "" + ( filasTriplo.size() + 2 ));
+
+                    // Agregar el numero de linea a los JMP de salida que quedaron pendientes
+                    posJMPFalso  = posicionSalida.get( posicionSalida.size() - 1 );
+                    lineaASaltar =   salidaSaltos.get(   salidaSaltos.size() - 1 );
+
+                    JMPFalso = filasTriplo.get( posJMPFalso - 1 );
+
+                    filasTriplo.add( posJMPFalso ,JMPFalso +" "+ lineaASaltar );
+                    filasTriplo.remove(posJMPFalso - 1 );
+                    posicionSalida.remove( posicionSalida.size() - 1 );
+
                 }
 
                 // Caso de operacion aritmetica: y = a + b
@@ -796,62 +797,6 @@ public class tablaTipos {
 
                     }
                 }
-
-
-                //CASO WHILE TEMPORAL
-
-
-
-                if (palabras[i].equals("&&")) {
-                    // while  ( a && b )
-                    if (palabras[i - 1].equals(")")) {
-
-                    }
-                    // while( ( x < 7 ) && x )
-                    // while( ( x < 7 ) && ( y < 4 ) )
-                }
-
-                if (palabras[i].equals("||")) {
-
-                }
-
-                /* ORDEN:   0 -> while
-                                1-> (
-                                    2-> X o 1 o True
-                                        3 -> logico ("&&")
-                                                4 -> X o 1 | True | False
-                                                        5 -> )
-                                                4 -> (
-                                                    5 -> X o 1
-                                                        6 -> relacional (==, >, <, <=, >=)
-                                                            7 -> X o 1
-                                                                8 -> )
-                                                                    9 -> )
-                                        3 -> logico ("||")
-
-                                        3 -> relacional (==, >, <, <=, >=)
-                                                4 -> X o 1 o True o False
-                                                    5 -> )
-
-                                    2 -> (
-                                        3 ->  X o 1 ->
-                                                4 -> relacional (==, >, <, <=, >=)
-                                                    5 -> X | 1
-                                                        6 -> )
-                                                            7 -> logico("&&" o "||")
-                                                                8 -> X
-                                                                    9 -> )
-                                                                8 -> (
-                                                                    9 -> X o 1
-                                                                        10 -> relacional (==, >, <, <=, >=)
-                                                                            11 -> X o 1
-                                                                                12 -> )
-                                                                                    13 -> ) */
-
-//                if(palabras[i].equals("==") || palabras[i].equals(">=") || palabras[i].equals("<=") || palabras[i].equals(">") || palabras[i].equals("<") || palabras[i].equals("!="))
-//                {
-//
-//                }
             }
         }
         // Impresion en archivo de texto
