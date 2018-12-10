@@ -642,7 +642,9 @@ public class tablaTipos {
         ArrayList<String> filasTriplo = new ArrayList<>();
         ArrayList<String> lineasWhile = new ArrayList<>();
         ArrayList<String> salidaSaltos = new ArrayList<>();
+        ArrayList<Integer> posicionSalida = new ArrayList<>();
         String [] arregloFilasTriplo;
+        String aux;
         int contadorTemporal = 1;
 
 //      Limpieza de variables, Lectura de nuevo ahora con optimizacion
@@ -671,6 +673,17 @@ public class tablaTipos {
                     //filasTriplo.add("JMP   "+lineasWhile.get(0));
                     lineasWhile.remove(lineasWhile.size()-1);
                     salidaSaltos.add(""+(filasTriplo.size()+2));
+                    aux=filasTriplo.get((posicionSalida.get((posicionSalida.size()-1)))-1);
+                    
+                    //System.out.println("hola "+aux);
+                    
+                    //filasTriplo.remove(posicionSalida.get((posicionSalida.size()-1)));
+                    filasTriplo.add((posicionSalida.get((posicionSalida.size()-1))),aux+salidaSaltos.get((salidaSaltos.size()-1)));
+                    int indice=(posicionSalida.get((posicionSalida.size()-1)));
+                    //System.out.println("aux2 "+aux2);
+                    filasTriplo.remove(indice-1);
+                    System.out.println("num "+posicionSalida.size());
+                    posicionSalida.remove((posicionSalida.size()-1));
                     //System.out.println(salidaSaltos.get(0));
                     
                 }
@@ -714,6 +727,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+" "+palabras[i+4]+" "+palabras[i+3]);
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;
                             lineasWhile.add(""+filasTriplo.size());
                         }
@@ -723,6 +737,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+"   ==");
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;
                             
                         }
@@ -734,6 +749,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+" "+palabras[i-2]+" "+palabras[i-3]);
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;
                             
                         }
@@ -742,7 +758,9 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+" "+palabras[i-1]+" =");
                             filasTriplo.add("T"+contadorTemporal+"   ==");
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
-                            filasTriplo.add("TR FALSE JUMP"+salidaSaltos.get((salidaSaltos.size())));
+                            filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
+                            //System.out.println(posicionSalida.get(0));
                             contadorTemporal++;
                             
                         }
@@ -752,6 +770,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+" "+palabras[i+4]+" "+palabras[i+3]);
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;
                             
                         }
@@ -761,6 +780,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+"   ==");
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;
                             
                         }
@@ -771,6 +791,7 @@ public class tablaTipos {
                             filasTriplo.add("T"+contadorTemporal+" "+palabras[i+1]+" "+palabras[i]);
                             filasTriplo.add("TR TRUE "+(filasTriplo.size()+3));
                             filasTriplo.add("TR FALSE JUMP");
+                            posicionSalida.add(filasTriplo.size());
                             contadorTemporal++;                       
 
                     }
