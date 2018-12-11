@@ -49,8 +49,8 @@
       <file leaf-file-name="tablaTipos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="171" column="50" lean-forward="true" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
+            <state relative-caret-position="404">
+              <caret line="809" column="56" selection-start-line="809" selection-start-column="56" selection-end-line="809" selection-end-column="56" />
               <folding>
                 <element signature="method#tablaTipos#0;class#tablaTipos#0" />
                 <element signature="method#crearArchivo#0;class#tablaTipos#0" />
@@ -61,19 +61,11 @@
                 <element signature="method#isNumeric#0;class#tablaTipos#0" />
                 <element signature="method#isInt#0;class#tablaTipos#0" />
                 <element signature="method#verificador#0;class#tablaTipos#0" />
-                <element signature="e#13494#13507#0" />
-                <element signature="e#15806#15820#0" />
-                <element signature="e#23111#23124#0" />
                 <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
                 <element signature="method#detectarError#0;class#tablaTipos#0" />
                 <element signature="method#detectarError#1;class#tablaTipos#0" />
                 <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
                 <element signature="method#optimizacion#0;class#tablaTipos#0" />
-                <element signature="method#triplo#0;class#tablaTipos#0" />
-                <element signature="e#41119#41151#0" />
-                <element signature="e#41728#41775#0" />
-                <element signature="e#43848#43880#0" />
-                <element signature="e#44487#44534#0" />
                 <element signature="method#main#0;class#tablaTipos#0" />
               </folding>
             </state>
@@ -199,23 +191,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3292683" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3292683" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.68834686" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.68834686" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.25266525" />
       <window_info id="Learn" order="4" weight="0.32889733" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="3" />
-      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -232,6 +223,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2907">
+          <caret line="171" column="50" lean-forward="true" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
+          <folding>
+            <element signature="method#tablaTipos#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#0;class#tablaTipos#0" />
+            <element signature="method#crearArchivo#1;class#tablaTipos#0" />
+            <element signature="method#abrirArchivo#0;class#tablaTipos#0" />
+            <element signature="method#entrada#0;class#tablaTipos#0" />
+            <element signature="method#separador#0;class#tablaTipos#0" />
+            <element signature="method#isNumeric#0;class#tablaTipos#0" />
+            <element signature="method#isInt#0;class#tablaTipos#0" />
+            <element signature="method#verificador#0;class#tablaTipos#0" />
+            <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#0;class#tablaTipos#0" />
+            <element signature="method#detectarError#1;class#tablaTipos#0" />
+            <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
+            <element signature="method#optimizacion#0;class#tablaTipos#0" />
+            <element signature="method#main#0;class#tablaTipos#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11356">
           <caret line="668" column="34" lean-forward="true" selection-start-line="668" selection-start-column="34" selection-end-line="668" selection-end-column="34" />
           <folding>
@@ -244,19 +259,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -276,19 +283,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -308,19 +307,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -340,19 +331,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -372,19 +355,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -404,19 +379,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -448,19 +415,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -480,19 +439,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -512,19 +463,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -544,19 +487,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -576,19 +511,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>
@@ -608,8 +535,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tablaTipos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="171" column="50" lean-forward="true" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
+        <state relative-caret-position="404">
+          <caret line="809" column="56" selection-start-line="809" selection-start-column="56" selection-end-line="809" selection-end-column="56" />
           <folding>
             <element signature="method#tablaTipos#0;class#tablaTipos#0" />
             <element signature="method#crearArchivo#0;class#tablaTipos#0" />
@@ -620,19 +547,11 @@
             <element signature="method#isNumeric#0;class#tablaTipos#0" />
             <element signature="method#isInt#0;class#tablaTipos#0" />
             <element signature="method#verificador#0;class#tablaTipos#0" />
-            <element signature="e#13494#13507#0" />
-            <element signature="e#15806#15820#0" />
-            <element signature="e#23111#23124#0" />
             <element signature="method#agregarTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#detectarError#0;class#tablaTipos#0" />
             <element signature="method#detectarError#1;class#tablaTipos#0" />
             <element signature="method#imprimirTablaSimbolos#0;class#tablaTipos#0" />
             <element signature="method#optimizacion#0;class#tablaTipos#0" />
-            <element signature="method#triplo#0;class#tablaTipos#0" />
-            <element signature="e#41119#41151#0" />
-            <element signature="e#41728#41775#0" />
-            <element signature="e#43848#43880#0" />
-            <element signature="e#44487#44534#0" />
             <element signature="method#main#0;class#tablaTipos#0" />
           </folding>
         </state>

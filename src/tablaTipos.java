@@ -651,6 +651,8 @@ public class tablaTipos {
         String JMPFalso, lineaASaltar;
         int posJMPFalso;
         int contadorTemporal = 1;
+        int contador = 0;
+        boolean band = false;
 
 //      Limpieza de variables, Lectura de nuevo ahora con optimizacion
         lectura.clear();                                                    // Se borra su contenido
@@ -671,11 +673,13 @@ public class tablaTipos {
 
             for (int i = 0; i < palabras.length; i++) {
                 // Omitir corchetes
-                if (palabras[i].equals("}")) {
+                if(palabras[i].equals("&&"))
+                    band = true;
+                if ( palabras[i].equals("}")) {
                     // Agregar JMP que devuelva a la fila donde se evalua el while
                     filasTriplo.add( "JMP   " + lineasWhile.get( lineasWhile.size() - 1 ));
                     lineasWhile.remove(lineasWhile.size() - 1);
-                    salidaSaltos.add( "" + ( filasTriplo.size() + 2 ));
+                    salidaSaltos.add( "" + ( filasTriplo.size() + 1 ));
 
                     // Agregar el numero de linea a los JMP de salida que quedaron pendientes
                     posJMPFalso  = posicionSalida.get( posicionSalida.size() - 1 );
@@ -686,6 +690,7 @@ public class tablaTipos {
                     filasTriplo.add( posJMPFalso ,JMPFalso +" "+ lineaASaltar );
                     filasTriplo.remove(posJMPFalso - 1 );
                     posicionSalida.remove( posicionSalida.size() - 1 );
+                    contador--;
 
                 }
 
@@ -798,6 +803,11 @@ public class tablaTipos {
                     }
                 }
             }
+        }
+        if(band)
+        {
+            filasTriplo.add( posicionSalida.get(0), filasTriplo.get( posicionSalida.get(0) + 3 ) );
+            filasTriplo.remove( posicionSalida.get(0) - 1);
         }
         // Impresion en archivo de texto
         arregloFilasTriplo = new String[filasTriplo.size()];
